@@ -1,23 +1,38 @@
 package br.com.erudio.models;
 
-import java.util.Objects;
+import jakarta.persistence.*;
 
+import java.util.Objects;
+import java.util.UUID;
+
+@Entity
+@Table(name = "person")
 public class PersonModel {
 
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID personId;
+
+    @Column(name = "name", nullable = false, length = 80)
     private String name;
+
+    @Column(name = "lastName", nullable = false, length = 80)
     private String lastName;
+
+    @Column(nullable = false, length = 100)
     private String adress;
+
+    @Column(nullable = false, length = 10)
     private String gender;
 
     public PersonModel() { }
 
-    public Long getId() {
-        return id;
+    public UUID getId() {
+        return personId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(UUID id) {
+        this.personId = id;
     }
 
     public String getName() {
@@ -57,11 +72,11 @@ public class PersonModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonModel that = (PersonModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(lastName, that.lastName) && Objects.equals(adress, that.adress) && Objects.equals(gender, that.gender);
+        return Objects.equals(personId, that.personId) && Objects.equals(name, that.name) && Objects.equals(lastName, that.lastName) && Objects.equals(adress, that.adress) && Objects.equals(gender, that.gender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName, adress, gender);
+        return Objects.hash(personId, name, lastName, adress, gender);
     }
 }
