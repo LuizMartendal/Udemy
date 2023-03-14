@@ -3,6 +3,7 @@ package br.com.erudio.services;
 import br.com.erudio.controllers.PersonController;
 import br.com.erudio.dtos.PersonDTO;
 import br.com.erudio.dtos.PersonDTOv2;
+import br.com.erudio.exceptions.RequiredObjectIsNullException;
 import br.com.erudio.exceptions.ResourceNotFoundException;
 import br.com.erudio.models.PersonModel;
 import br.com.erudio.repositories.PersonRepository;
@@ -59,7 +60,7 @@ public class PersonService {
             personDTO.add(linkTo(methodOn(PersonController.class).findById(personDTO.getId())).withSelfRel());
             return personDTO;
         }
-        throw new ResourceNotFoundException("There´s a problem with this person!");
+        throw new RequiredObjectIsNullException();
     }
 
     public PersonDTO update(PersonDTO personDTO, UUID id){
