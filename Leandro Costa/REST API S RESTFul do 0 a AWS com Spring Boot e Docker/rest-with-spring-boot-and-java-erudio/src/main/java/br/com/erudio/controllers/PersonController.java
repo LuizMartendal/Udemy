@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person")
 @Tag(name = "People", description = "Endpoints for managing people")
 public class PersonController {
 
