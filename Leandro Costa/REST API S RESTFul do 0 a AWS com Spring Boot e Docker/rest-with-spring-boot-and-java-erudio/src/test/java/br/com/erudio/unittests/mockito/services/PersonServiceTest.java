@@ -1,6 +1,6 @@
 package br.com.erudio.unittests.mockito.services;
 
-import br.com.erudio.dtos.PersonDTO;
+import br.com.erudio.dtos.person.PersonDTO;
 import br.com.erudio.exceptions.RequiredObjectIsNullException;
 import br.com.erudio.models.PersonModel;
 import br.com.erudio.repositories.PersonRepository;
@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ class PersonServiceTest {
     }
 
     private void setPerson() {
-        person.setId(UUID.fromString("c6218679-9744-4bf8-a87f-c546b34bcf36"));
+        person.setPersonId(UUID.fromString("c6218679-9744-4bf8-a87f-c546b34bcf36"));
         person.setName("Luiz");
         person.setAdress("Rua Pedro Martendal");
         person.setLastName("Martendal");
@@ -83,12 +82,12 @@ class PersonServiceTest {
 
         PersonModel personModel = new PersonModel();
         BeanUtils.copyProperties(person, personModel);
-        personModel.setId(person.getId());
-        when(personRepository.findById(person.getId())).thenReturn(Optional.of(personModel));
+        personModel.setPersonId(person.getPersonId());
+        when(personRepository.findById(person.getPersonId())).thenReturn(Optional.of(personModel));
 
-        PersonDTO result = service.findById(person.getId());
+        PersonDTO result = service.findById(person.getPersonId());
         assertNotNull(result);
-        assertNotNull(result.getId());
+        assertNotNull(result.getPersonId());
         assertNotNull(result.getLinks());
     }
 
@@ -102,7 +101,7 @@ class PersonServiceTest {
 
         PersonDTO result = service.create(person);
         assertNotNull(result);
-        assertNotNull(result.getId());
+        assertNotNull(result.getPersonId());
         assertNotNull(result.getLinks());
     }
 
@@ -113,9 +112,9 @@ class PersonServiceTest {
         PersonModel personModel = new PersonModel();
 
         BeanUtils.copyProperties(person, personModel);
-        when(personRepository.findById(personModel.getId())).thenReturn(Optional.of(personModel));
+        when(personRepository.findById(personModel.getPersonId())).thenReturn(Optional.of(personModel));
 
-        PersonDTO personDTO = service.findById(personModel.getId());
+        PersonDTO personDTO = service.findById(personModel.getPersonId());
         assertNotNull(personDTO);
         assertNotNull(personDTO.getPersonId());
 
@@ -125,8 +124,8 @@ class PersonServiceTest {
 
         PersonDTO personDTO1 = new PersonDTO();
         BeanUtils.copyProperties(personModel, personDTO1);
-        var result = service.update(personDTO1, personDTO1.getId());
-        var resultFound = service.findById(personDTO1.getId());
+        var result = service.update(personDTO1, personDTO1.getPersonId());
+        var resultFound = service.findById(personDTO1.getPersonId());
 
         assertNotNull(result);
         assertNotNull(result.getPersonId());
@@ -142,18 +141,18 @@ class PersonServiceTest {
         BeanUtils.copyProperties(person, personModel);
 
         when(personRepository.save(personModel)).thenReturn(personModel);
-        when(personRepository.findById(personModel.getId())).thenReturn(Optional.of(personModel));
+        when(personRepository.findById(personModel.getPersonId())).thenReturn(Optional.of(personModel));
 
         var result = service.create(person);
 
-        var result1 = service.findById(personModel.getId());
+        var result1 = service.findById(personModel.getPersonId());
 
         assertEquals(result1.getName(), result.getName());
         assertEquals(result.getName(), person.getName());
 
-        service.delete(result1.getId());
+        service.delete(result1.getPersonId());
 
-        var result2 = service.findById(result1.getId());
+        var result2 = service.findById(result1.getPersonId());
 
         assertNull(result2.getName());
     }

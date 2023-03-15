@@ -1,13 +1,14 @@
-package br.com.erudio.dtos;
+package br.com.erudio.unittests.mockito.integrationstests.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
-public class PersonDTOv2 extends RepresentationModel<PersonDTOv2> implements Serializable {
+public class PersonDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -16,22 +17,26 @@ public class PersonDTOv2 extends RepresentationModel<PersonDTOv2> implements Ser
     private String lastName;
     private String adress;
     private String gender;
-    private Date birthDate;
 
-    public UUID getKey() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonDTO personDTO = (PersonDTO) o;
+        return Objects.equals(personId, personDTO.personId) && Objects.equals(name, personDTO.name) && Objects.equals(lastName, personDTO.lastName) && Objects.equals(adress, personDTO.adress) && Objects.equals(gender, personDTO.gender);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personId, name, lastName, adress, gender);
+    }
+
+    public UUID getPersonId() {
         return personId;
     }
 
-    public void setKey(UUID key) {
-        this.personId = key;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setPersonId(UUID personId) {
+        this.personId = personId;
     }
 
     public String getName() {

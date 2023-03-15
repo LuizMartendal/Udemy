@@ -1,8 +1,7 @@
 package br.com.erudio.controllers;
 
-import br.com.erudio.dtos.PersonDTO;
-import br.com.erudio.dtos.PersonDTOv2;
-import br.com.erudio.models.PersonModel;
+import br.com.erudio.dtos.person.PersonDTO;
+import br.com.erudio.dtos.person.PersonDTOv2;
 import br.com.erudio.services.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/person")
@@ -36,7 +34,7 @@ public class PersonController {
         return ResponseEntity.ok().body(personService.findById(id));
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
     @Operation(summary = "Create", description = "Create a person")
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO person) {
         return ResponseEntity.ok().body(personService.create(person));

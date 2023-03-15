@@ -1,17 +1,13 @@
-package br.com.erudio.dtos;
+package br.com.erudio.dtos.person;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Optional;
+import java.util.Date;
 import java.util.UUID;
 
-@JsonPropertyOrder({"id", "lastname", "name", "gender", "adress"})
-public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
+public class PersonDTOv2 extends RepresentationModel<PersonDTOv2> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -20,21 +16,22 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     private String lastName;
     private String adress;
     private String gender;
+    private Date birthDate;
 
-    public UUID getPersonId() {
+    public UUID getKey() {
         return personId;
     }
 
-    public void setPersonId(UUID personId) {
-        this.personId = personId;
+    public void setKey(UUID key) {
+        this.personId = key;
     }
 
-    public UUID getId() {
-        return personId;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setId(UUID id) {
-        this.personId = id;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getName() {

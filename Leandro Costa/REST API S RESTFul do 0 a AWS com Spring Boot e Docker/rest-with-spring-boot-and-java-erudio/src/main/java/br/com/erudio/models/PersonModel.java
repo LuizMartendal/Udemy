@@ -10,6 +10,7 @@ import java.util.UUID;
 public class PersonModel {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID personId;
 
@@ -27,11 +28,11 @@ public class PersonModel {
 
     public PersonModel() { }
 
-    public UUID getId() {
+    public UUID getPersonId() {
         return personId;
     }
 
-    public void setId(UUID id) {
+    public void setPersonId(UUID id) {
         this.personId = id;
     }
 
