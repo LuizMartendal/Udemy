@@ -41,4 +41,17 @@ public class AuthService {
             throw new BadCredentialsException("Invalid username/password supplied!");
         }
     }
+
+    @SuppressWarnings("rawtypes")
+    public ResponseEntity<?> refreshToken(String username, String refreshToken) {
+        var user = userRepository.findByUsername(username);
+
+        var tokenResponse = new TokenDTO();
+        if (user != null) {
+            tokenResponse = jwtTokenProvider.createAccessToken(username, user.getRoles());
+        } else {
+            throw new UsernameNotFoundException("Username not found!");
+        }
+        return ResponseEntity.ok(tokenResponse);
+    }
 }
