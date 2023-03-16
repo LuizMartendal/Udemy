@@ -1,11 +1,7 @@
 package br.com.erudio.repositories;
 
-import br.com.erudio.models.PersonModel;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
+import br.com.erudio.model.Person;
 
-@Repository
-public interface PersonRepository extends JpaRepository<PersonModel, UUID> {
-}
+public interface PersonRepository extends JpaRepository<Person, Long> {}

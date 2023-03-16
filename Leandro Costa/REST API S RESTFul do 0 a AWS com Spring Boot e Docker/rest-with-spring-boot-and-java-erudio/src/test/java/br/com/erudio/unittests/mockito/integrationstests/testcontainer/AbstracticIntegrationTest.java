@@ -13,7 +13,8 @@ import java.util.stream.Stream;
 
 @ContextConfiguration(initializers = AbstracticIntegrationTest.Initializer.class)
 public class AbstracticIntegrationTest {
-    public static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+    static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
         static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.32");
 
         private static void startContainers() {
@@ -38,6 +39,5 @@ public class AbstracticIntegrationTest {
                     (Map) createConnectionConfiguration());
             environment.getPropertySources().addFirst(testcontainers);
         }
-
     }
 }
