@@ -1,5 +1,6 @@
 package br.com.erudio.controllers;
 
+import br.com.erudio.util.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,8 @@ public class AuthController {
 	
 	@SuppressWarnings("rawtypes")
 	@Operation(summary = "Refresh token for authenticated user and returns a token")
-	@PutMapping(value = "/refresh/{username}")
+	@PutMapping(value = "/refresh/{username}",
+			   produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public ResponseEntity refreshToken(@PathVariable("username") String username,
 			@RequestHeader("Authorization") String refreshToken) {
 		if (checkIfParamsIsNotNull(username, refreshToken))

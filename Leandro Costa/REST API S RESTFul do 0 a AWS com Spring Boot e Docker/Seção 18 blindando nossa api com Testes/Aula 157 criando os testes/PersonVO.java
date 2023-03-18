@@ -1,8 +1,8 @@
 package br.com.erudio.integrationtests.vo;
 
-import jakarta.xml.bind.annotation.XmlRootElement;
-
 import java.io.Serializable;
+
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class PersonVO implements Serializable {

@@ -1,9 +1,9 @@
-package br.com.erudio.data.vo.v1.security;
-
-import jakarta.xml.bind.annotation.XmlRootElement;
+package br.com.erudio.integrationtests.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class TokenVO implements Serializable{

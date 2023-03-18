@@ -1,39 +1,32 @@
-package br.com.erudio.integrationtests.controller.withjson;
+package br.com.erudio.integrationtests.controller.withxml;
 
-import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.data.vo.v1.security.TokenVO;
-import com.fasterxml.jackson.core.type.TypeReference;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.boot.test.context.SpringBootTest;
-
+import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
+import br.com.erudio.integrationtests.vo.PersonVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import br.com.erudio.configs.TestConfigs;
-import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
-import br.com.erudio.integrationtests.vo.PersonVO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.*;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@TestMethodOrder(OrderAnnotation.class)
-public class PersonControllerJsonTest extends AbstractIntegrationTest{
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class PersonControllerXmlTest extends AbstractIntegrationTest {
 
     private static RequestSpecification specification;
     private static ObjectMapper objectMapper;
@@ -55,7 +48,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
         var accessToken = given()
                 .basePath("/auth/signin")
                 .port(TestConfigs.SERVER_PORT)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_XML)
                 .body(user)
                 .when()
                 .post()
@@ -81,7 +74,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
         mockPerson();
 
         var content = given().spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_XML)
                 .body(person)
                 .when()
                 .post()
@@ -116,7 +109,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
         person.setLastName("Piquet Sout Maior");
 
         var content = given().spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_XML)
                 .body(person)
                 .when()
                 .post()
@@ -151,7 +144,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
         mockPerson();
 
         var content = given().spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_ERUDIO)
                 .pathParam("id", person.getId())
                 .when()
@@ -188,7 +181,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
         mockPerson();
 
         var content = given().spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_XML)
                 .header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_SEMERU)
                 .pathParam("id", person.getId())
                 .when()
@@ -208,7 +201,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
     @Order(5)
     public void testDelete() throws Exception {
         given().spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_XML)
                 .pathParam("id", person.getId())
                 .when()
                 .delete("{id}")
@@ -220,7 +213,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
     @Order(6)
     public void testFindAll() throws JsonProcessingException {
         var content = given().spec(specification)
-                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_XML)
                 .when()
                 .get()
                 .then()
@@ -228,7 +221,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
                 .extract()
                 .body()
                 .asString();
-                    //.as(new TypeRef<List<PersonVO>>() {});
+        //.as(new TypeRef<List<PersonVO>>() {});
         List<PersonVO> people = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {});
         PersonVO foundPerson = people.get(0);
 
@@ -243,5 +236,4 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
         person.setAddress("New York City, New York, US");
         person.setGender("Male");
     }
-
 }
