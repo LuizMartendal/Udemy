@@ -3,7 +3,7 @@ package br.com.erudio.integrationtests.controller.withyaml;
 import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.data.vo.v1.security.TokenVO;
-import br.com.erudio.integrationtests.controller.withyaml.mapper.YamlMapper;
+import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
@@ -25,11 +25,11 @@ import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 public class AuthControllerYamlTest extends AbstractIntegrationTest {
 
     private static TokenVO tokenVO;
-    private static YamlMapper objectMapper;
+    private static YMLMapper objectMapper;
 
     @BeforeAll
     public static void setup() {
-        objectMapper = new YamlMapper();
+        objectMapper = new YMLMapper();
     }
 
     @Test
