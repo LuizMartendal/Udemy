@@ -1,9 +1,7 @@
-server:
-  port: 80
 cors:
   originPatterns: http://localhost:3000,http://localhost:8080,https://erudio.com.br
 file:
-  upload-dir: /Users/luizm/Documents/Udemy/Leandro Costa/REST API S RESTFul do 0 a AWS com Spring Boot e Docker
+  upload-dir: /Code/UploadDir
 security:
   jwt:
     token:
@@ -12,9 +10,9 @@ security:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/rest_with_spring_boot_erudio
+    url: jdbc:mysql://localhost:3306/rest_with_spring_boot_erudio?useTimezone=true&serverTimezone=UTC
     username: root
-    password: Mansp25122016*
+    password: admin123
   jpa:
     hibernate:
       ddl-auto: none

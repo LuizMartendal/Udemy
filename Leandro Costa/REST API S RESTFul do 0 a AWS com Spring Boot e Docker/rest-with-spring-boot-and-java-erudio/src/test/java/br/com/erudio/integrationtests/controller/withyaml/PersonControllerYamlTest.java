@@ -324,6 +324,32 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
         assertNotNull(foundPerson);
     }
 
+    @Test
+    @Order(9)
+    public void testHateoas() throws JsonProcessingException {
+        var content = given().spec(specification)
+                .config(RestAssuredConfig.config()
+                        .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(
+                                TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT
+                        )))
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
+                .queryParam("page", 3, "size", 10, "direction", "asc")
+                .accept(TestConfigs.CONTENT_TYPE_YML)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+        //.as(new TypeRef<List<PersonVO>>() {});
+
+        Assertions.assertTrue(content.contains("self"));
+        Assertions.assertTrue(content.contains("first"));
+        Assertions.assertTrue(content.contains("next"));
+        Assertions.assertTrue(content.contains("last"));
+    }
+
     private void mockPerson() {
         person.setFirstName("Richard");
         person.setLastName("Stallman");

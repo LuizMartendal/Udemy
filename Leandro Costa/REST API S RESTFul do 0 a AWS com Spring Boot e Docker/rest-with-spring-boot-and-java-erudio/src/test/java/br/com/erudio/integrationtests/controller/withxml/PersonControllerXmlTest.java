@@ -297,6 +297,28 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         assertNotNull(foundPerson);
     }
 
+    @Test
+    @Order(9)
+    public void testHateoas() throws JsonProcessingException {
+        var content = given().spec(specification)
+                .contentType(TestConfigs.CONTENT_TYPE_XML)
+                .accept(TestConfigs.CONTENT_TYPE_XML)
+                .queryParam("page", 0, "size", 10, "direction", "asc")
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+        //.as(new TypeRef<List<PersonVO>>() {});
+
+        Assertions.assertTrue(content.contains("self"));
+        Assertions.assertTrue(content.contains("first"));
+        Assertions.assertTrue(content.contains("next"));
+        Assertions.assertTrue(content.contains("last"));
+    }
+
     private void mockPerson() {
         person.setFirstName("Richard");
         person.setLastName("Stallman");

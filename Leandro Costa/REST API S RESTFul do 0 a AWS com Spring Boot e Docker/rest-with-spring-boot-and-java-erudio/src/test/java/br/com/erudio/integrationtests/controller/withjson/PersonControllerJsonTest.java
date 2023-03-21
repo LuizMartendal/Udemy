@@ -9,11 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.data.vo.v1.security.TokenVO;
 import br.com.erudio.integrationtests.vo.person.WrapperPersonVO;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -293,6 +290,28 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
 
         assertNotNull(foundPerson);
         assertNotNull(foundPerson.getId());
+    }
+
+    @Test
+    @Order(9)
+    public void testHateoas() throws JsonProcessingException {
+        var content = given().spec(specification)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .queryParam("page", 3, "size", 10, "direction", "asc")
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+        //.as(new TypeRef<List<PersonVO>>() {});
+
+        Assertions.assertTrue(content.contains("self"));
+        Assertions.assertTrue(content.contains("first"));
+        Assertions.assertTrue(content.contains("prev"));
+        Assertions.assertTrue(content.contains("next"));
+        Assertions.assertTrue(content.contains("last"));
     }
 
     private void mockPerson() {

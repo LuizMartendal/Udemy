@@ -1,4 +1,4 @@
-package br.com.erudio.unittests.mockito.services;
+package br.com.erudio.integrationtests.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
