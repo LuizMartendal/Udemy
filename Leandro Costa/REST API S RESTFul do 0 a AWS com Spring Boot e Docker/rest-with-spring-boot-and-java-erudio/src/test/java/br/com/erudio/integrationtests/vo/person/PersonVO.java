@@ -1,4 +1,4 @@
-package br.com.erudio.integrationtests.vo;
+package br.com.erudio.integrationtests.vo.person;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 

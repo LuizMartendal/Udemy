@@ -50,7 +50,7 @@ public class PersonServices {
 
 		logger.info("Finding all people!");
 
-		var personPage = repository.findPeopleByName(firstName, pageable);
+		var personPage = repository.findPersonsByName(firstName, pageable);
 
 		var personVosPage = personPage.map(p -> DozerMapper.parseObject(p, PersonVO.class));
 		personVosPage.map(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));

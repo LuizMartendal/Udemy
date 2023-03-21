@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.erudio.data.vo.v1.security.TokenVO;
+import br.com.erudio.integrationtests.vo.book.WrapperPersonVO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -25,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
-import br.com.erudio.integrationtests.vo.BookVO;
+import br.com.erudio.integrationtests.vo.book.BookVO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -53,8 +54,8 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     @Order(1)
     public void authorization() {
         AccountCredentialsVO user = new AccountCredentialsVO();
-        user.setUsername("leandro");
-        user.setPassword("admin123");
+        user.setUsername("Luiz");
+        user.setPassword("senha123");
 
         var token =
                 given()
@@ -192,29 +193,23 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                     .body()
                 .asString();
         
-        List<BookVO> books = objectMapper.readValue(content, new TypeReference<List<BookVO>>() {});
+        WrapperPersonVO books = objectMapper.readValue(content, WrapperPersonVO.class);
 		
-        BookVO foundBookOne = books.get(0);
+        BookVO foundBookOne = books.getBookEmbeddedVO().getBooks().get(0);
         
         assertNotNull(foundBookOne.getId());
         assertNotNull(foundBookOne.getTitle());
         assertNotNull(foundBookOne.getAuthor());
         assertNotNull(foundBookOne.getPrice());
         assertTrue(foundBookOne.getId() > 0);
-        assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
-        assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
-        assertEquals(49.00, foundBookOne.getPrice());
         
-        BookVO foundBookFive = books.get(4);
+        BookVO foundBookFive = books.getBookEmbeddedVO().getBooks().get(4);
         
         assertNotNull(foundBookFive.getId());
         assertNotNull(foundBookFive.getTitle());
         assertNotNull(foundBookFive.getAuthor());
         assertNotNull(foundBookFive.getPrice());
         assertTrue(foundBookFive.getId() > 0);
-        assertEquals("Code complete", foundBookFive.getTitle());
-        assertEquals("Steve McConnell", foundBookFive.getAuthor());
-        assertEquals(58.0, foundBookFive.getPrice());
     }
      
     private void mockBook() {

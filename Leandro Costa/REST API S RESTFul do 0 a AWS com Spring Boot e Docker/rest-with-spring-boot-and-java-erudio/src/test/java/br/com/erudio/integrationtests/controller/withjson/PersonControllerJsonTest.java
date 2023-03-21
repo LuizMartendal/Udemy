@@ -8,8 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.data.vo.v1.security.TokenVO;
-import br.com.erudio.integrationtests.vo.WrapperPersonVO;
-import com.fasterxml.jackson.core.type.TypeReference;
+import br.com.erudio.integrationtests.vo.person.WrapperPersonVO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -24,14 +23,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.erudio.configs.TestConfigs;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
-import br.com.erudio.integrationtests.vo.PersonVO;
+import br.com.erudio.integrationtests.vo.person.PersonVO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
-
-import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
@@ -258,6 +255,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
     public void testFindAll() throws JsonProcessingException {
         var content = given().spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .queryParam("page", 3, "size", 10, "direction", "asc")
                 .when()
                 .get()
                 .then()
@@ -266,6 +264,29 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest{
                 .body()
                 .asString();
                     //.as(new TypeRef<List<PersonVO>>() {});
+        WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
+        var people = wrapper.getPersonEmbeddedVO().getPeople();
+        PersonVO foundPerson = people.get(0);
+
+        assertNotNull(foundPerson);
+        assertNotNull(foundPerson.getId());
+    }
+
+    @Test
+    @Order(8)
+    public void testFindPersonByName() throws JsonProcessingException {
+        var content = given().spec(specification)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .queryParam("page", 0, "size", 5, "direction", "asc")
+                .pathParam("firstName", "Ayr")
+                .when()
+                .get("firstName/{firstName}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+        //.as(new TypeRef<List<PersonVO>>() {});
         WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
         var people = wrapper.getPersonEmbeddedVO().getPeople();
         PersonVO foundPerson = people.get(0);

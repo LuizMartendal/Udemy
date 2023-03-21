@@ -5,8 +5,8 @@ import br.com.erudio.data.vo.v1.security.AccountCredentialsVO;
 import br.com.erudio.data.vo.v1.security.TokenVO;
 import br.com.erudio.integrationtests.controller.withyaml.mapper.YMLMapper;
 import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
-import br.com.erudio.integrationtests.vo.PersonVO;
-import br.com.erudio.integrationtests.vo.WrapperPersonVO;
+import br.com.erudio.integrationtests.vo.person.PagedModelPerson;
+import br.com.erudio.integrationtests.vo.person.PersonVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import io.restassured.builder.RequestSpecBuilder;
@@ -19,9 +19,6 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
@@ -285,6 +282,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                                 TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT
                         )))
                 .contentType(TestConfigs.CONTENT_TYPE_YML)
+                .queryParam("page", 3, "size", 10, "direction", "asc")
                 .accept(TestConfigs.CONTENT_TYPE_YML)
                 .when()
                 .get()
@@ -292,9 +290,35 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
                 .statusCode(200)
                 .extract()
                 .body()
-                .as(WrapperPersonVO.class, objectMapper);
+                .as(PagedModelPerson.class, objectMapper);
         //.as(new TypeRef<List<PersonVO>>() {});
-        var people = wrapper.getPersonEmbeddedVO().getPeople();
+        var people = wrapper.getContent();
+        PersonVO foundPerson = people.get(0);
+
+        assertNotNull(foundPerson);
+    }
+
+    @Test
+    @Order(8)
+    public void testFindPeopleById() throws JsonProcessingException {
+        var wrapper = given().spec(specification)
+                .config(RestAssuredConfig.config()
+                        .encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(
+                                TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT
+                        )))
+                .contentType(TestConfigs.CONTENT_TYPE_YML)
+                .queryParam("page", 0, "size", 10, "direction", "asc")
+                .accept(TestConfigs.CONTENT_TYPE_YML)
+                .pathParam("firstName", "Ayr")
+                .when()
+                .get("firstName/{firstName}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(PagedModelPerson.class, objectMapper);
+        //.as(new TypeRef<List<PersonVO>>() {});
+        var people = wrapper.getContent();
         PersonVO foundPerson = people.get(0);
 
         assertNotNull(foundPerson);
