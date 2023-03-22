@@ -3,7 +3,7 @@ server:
 cors:
   originPatterns: http://localhost:3000,http://localhost:8080,https://erudio.com.br
 file:
-  upload-dir: /Users/luizm/Documents/Udemy/Leandro Costa/REST API S RESTFul do 0 a AWS com Spring Boot e Docker
+  upload-dir: /home/runner/work/Udemy/Leandro Costa/REST-API-S-RESTFul-do-0-a-AWS-Spring-Boot-Docker/UploadDir
 security:
   jwt:
     token:
