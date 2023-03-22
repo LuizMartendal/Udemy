@@ -1,0 +1,6 @@
+https://www.red-gate.com/simple-talk/devops/database-devops/database-version-control-getting-started-with-flyway/
+
+
+https://martinfowler.com/articles/evodb.html
+https://www.exoscale.com/syslog/continuous-integration-databases/
+https://www.infoq.com/articles/Database-Version-Control/

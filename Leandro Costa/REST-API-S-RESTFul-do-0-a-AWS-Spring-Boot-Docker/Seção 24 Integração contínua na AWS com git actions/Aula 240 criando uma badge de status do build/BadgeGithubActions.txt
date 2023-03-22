@@ -1,0 +1,1 @@
+[![Continuous Integration with Github Actions](https://github.com/GITHUB_USERNAME/RESPOSITORY_NAME/actions/workflows/ACTION_SCRIPT_FILENAME.yml/badge.svg)](https://github.com/GITHUB_USERNAME/RESPOSITORY_NAME/actions/workflows/ACTION_SCRIPT_FILENAME.yml)

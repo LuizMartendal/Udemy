@@ -1,0 +1,13 @@
+AWS_ACCESS_KEY_ID = change_me
+AWS_SECRET_ACCESS_KEY = change_me
+AWS_DEFAULT_REGION = change_me
+
+ECR_REGISTRY = change_me
+ECR_REPOSITORY = change_me
+
+IMAGE_REPO_URL = change_me
+CLUSTER_NAME = change_me
+SERVICE_NAME = change_me
+
+TASK_DEFINITION_NAME = change_me
+CONTAINER_NAME = change_me

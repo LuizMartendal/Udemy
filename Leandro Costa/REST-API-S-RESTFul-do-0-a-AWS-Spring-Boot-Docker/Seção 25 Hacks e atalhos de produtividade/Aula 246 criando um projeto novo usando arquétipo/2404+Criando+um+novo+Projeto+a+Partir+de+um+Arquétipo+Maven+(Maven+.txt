@@ -1,0 +1,21 @@
+=============================
+COMMAND USED IN THE CLASS
+=============================
+
+mvn archetype:generate -DarchetypeGroupId=br.com.erudio -DarchetypeArtifactId=rest-with-springboot-udemy-archetype
+
+=============================
+COMPLETE COMMAND (WILL NOT ASK ANYTHING, JUST ADJUST TO YOUR REALITY)
+=============================
+
+mvn archetype:generate -DarchetypeGroupId=br.com.erudio -DarchetypeArtifactId=rest-with-springboot-udemy-archetype -DarchetypeVersion=0.0.1-SNAPSHOT -DgroupId=br.com.semeru -DartifactId=rest-api-from-archetype
+
+=============================
+HOW IT WORKS
+=============================
+mvn archetype:generate
+    -DarchetypeGroupId=br.com.erudio
+    -DarchetypeArtifactId=rest-with-springboot-udemy-archetype
+    -DarchetypeVersion=0.0.1-SNAPSHOT (YOUR_VERSION)
+    -DgroupId=br.com.semeru (YOUR_GROUP_ID)
+    -DartifactId=rest-api-from-archetype (YOUR_ARTIFACT_ID)
