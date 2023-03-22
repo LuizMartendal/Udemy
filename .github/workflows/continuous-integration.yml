@@ -25,11 +25,11 @@ jobs:
         cache: maven
 
     - name: Build Application JAR
-      working-directory: ./Udemy/Leandro Costa/REST-API-S-RESTFul-do-0-a-AWS-Spring-Boot-Docker/rest-with-spring-boot-and-java-erudio/
+      working-directory: Leandro Costa/REST-API-S-RESTFul-do-0-a-AWS-Spring-Boot-Docker/rest-with-spring-boot-and-java-erudio/
       run: mvn clean package
 
     - name: Docker Compose Build
-      working-directory: ./Udemy/Leandro Costa/REST-API-S-RESTFul-do-0-a-AWS-Spring-Boot-Docker/rest-with-spring-boot-and-java-erudio/
+      working-directory: Leandro Costa/REST-API-S-RESTFul-do-0-a-AWS-Spring-Boot-Docker/rest-with-spring-boot-and-java-erudio/
       run: docker compose build
 
     - name: Push to Docker Hub Container Registry
