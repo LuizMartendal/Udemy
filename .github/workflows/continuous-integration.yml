@@ -21,7 +21,7 @@ jobs:
       uses: actions/setup-java@v3
       with: 
         java-version: '19'
-        distribuition: 'adopt'
+        distribution: 'adopt'
         cache: maven
         
     - name: Build Application jar
