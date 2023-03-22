@@ -25,15 +25,16 @@ jobs:
         cache: maven
         
     - name: Build Application jar
-      working-directory: /Leandro Costa/REST-API-S-RESTFul-do-0-a-AWS-com-Spring-Boot-e-Docker/rest-with-spring-boot-and-java-erudio
+      working-directory: ./Leandro Costa/REST-API-S-RESTFul-do-0-a-AWS-com-Spring-Boot-e-Docker/rest-with-spring-boot-and-java-erudio
       run: mvn clean package
       
     - name: Build Docker Compose
-      working-directory: /Leandro Costa/REST-API-S-RESTFul-do-0-a-AWS-com-Spring-Boot-e-Docker/rest-with-spring-boot-and-java-erudio
-      run: mvn clean package
+      working-directory: ./Leandro Costa/REST-API-S-RESTFul-do-0-a-AWS-com-Spring-Boot-e-Docker/rest-with-spring-boot-and-java-erudio
+      run: mvn compose build
       
     - name: Push to Docker Hub Container Registry
       run: |
         docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
         
         docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest
