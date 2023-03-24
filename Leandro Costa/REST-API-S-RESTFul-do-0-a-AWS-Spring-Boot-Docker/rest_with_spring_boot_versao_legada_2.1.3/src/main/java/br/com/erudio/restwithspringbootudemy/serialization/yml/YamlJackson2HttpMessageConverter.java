@@ -1,4 +1,4 @@
-package br.com.erudio.restwithspringbootudemy.serilization.yml;
+package br.com.erudio.restwithspringbootudemy.serialization.yml;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;

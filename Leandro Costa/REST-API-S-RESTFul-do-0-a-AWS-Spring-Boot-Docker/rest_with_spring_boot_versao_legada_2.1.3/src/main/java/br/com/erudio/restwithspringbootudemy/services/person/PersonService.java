@@ -6,8 +6,10 @@ import br.com.erudio.restwithspringbootudemy.models.person.PersonModel;
 import br.com.erudio.restwithspringbootudemy.repositories.person.PersonRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +23,9 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
-    public List<PersonDTO> findAll() {
+    public List<PersonDTO> findAll(Pageable pageable) {
         List<PersonDTO> personDTOS = new ArrayList<>();
-        repository.findAll()
+        repository.findAll(pageable)
             .forEach(person -> {
                 PersonDTO personDTO = new PersonDTO();
                 BeanUtils.copyProperties(person, personDTO);
@@ -73,5 +75,17 @@ public class PersonService {
         if (personFound.get().getPersonId() != null) {
             repository.delete(personFound.get());
         }
+    }
+
+    @Transactional
+    public PersonDTO disablePerson(Long id) {
+        return repository.findById(id)
+                .map(person -> {
+                    repository.disablePerson(person.getPersonId());
+                    PersonDTO personDTO = new PersonDTO();
+                    Optional<PersonModel> personModel = repository.findById(id);
+                    BeanUtils.copyProperties(personModel, personDTO);
+                    return personDTO;
+                }).orElseThrow(NullPointerException::new);
     }
 }

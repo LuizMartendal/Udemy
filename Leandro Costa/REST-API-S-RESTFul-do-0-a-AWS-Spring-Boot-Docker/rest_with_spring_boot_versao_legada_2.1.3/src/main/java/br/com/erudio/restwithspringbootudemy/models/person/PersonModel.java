@@ -19,9 +19,11 @@ public class PersonModel implements Serializable {
     @Column(nullable = false)
     private String lastName;
     @Column(nullable = false)
+    private boolean enabled;
+    @Column(nullable = false)
     private String gender;
     @Column(nullable = false)
-    private String adress;
+    private String address;
 
     public PersonModel() {
     }
@@ -30,8 +32,8 @@ public class PersonModel implements Serializable {
         return personId;
     }
 
-    public void setPersonId(Long id) {
-        this.personId = id;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public String getFirstName() {
@@ -50,6 +52,14 @@ public class PersonModel implements Serializable {
         this.lastName = lastName;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public String getGender() {
         return gender;
     }
@@ -58,12 +68,12 @@ public class PersonModel implements Serializable {
         this.gender = gender;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
@@ -71,11 +81,11 @@ public class PersonModel implements Serializable {
         if (this == o) return true;
         if (!(o instanceof PersonModel)) return false;
         PersonModel that = (PersonModel) o;
-        return Objects.equals(getPersonId(), that.getPersonId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getGender(), that.getGender()) && Objects.equals(getAdress(), that.getAdress());
+        return isEnabled() == that.isEnabled() && Objects.equals(getPersonId(), that.getPersonId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getGender(), that.getGender()) && Objects.equals(getAddress(), that.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPersonId(), getFirstName(), getLastName(), getGender(), getAdress());
+        return Objects.hash(getPersonId(), getFirstName(), getLastName(), isEnabled(), getGender(), getAddress());
     }
 }

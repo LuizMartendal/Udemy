@@ -16,8 +16,9 @@ public class PersonDTO extends ResourceSupport implements Serializable {
     private Long personId;
     private String firstName;
     private String lastName;
+    private boolean enabled;
     private String gender;
-    private String adress;
+    private String address;
 
     public PersonDTO() {
     }
@@ -46,6 +47,14 @@ public class PersonDTO extends ResourceSupport implements Serializable {
         this.lastName = lastName;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public String getGender() {
         return gender;
     }
@@ -54,12 +63,12 @@ public class PersonDTO extends ResourceSupport implements Serializable {
         this.gender = gender;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
@@ -68,11 +77,11 @@ public class PersonDTO extends ResourceSupport implements Serializable {
         if (!(o instanceof PersonDTO)) return false;
         if (!super.equals(o)) return false;
         PersonDTO personDTO = (PersonDTO) o;
-        return Objects.equals(getPersonId(), personDTO.getPersonId()) && Objects.equals(getFirstName(), personDTO.getFirstName()) && Objects.equals(getLastName(), personDTO.getLastName()) && Objects.equals(getGender(), personDTO.getGender()) && Objects.equals(getAdress(), personDTO.getAdress());
+        return isEnabled() == personDTO.isEnabled() && Objects.equals(getPersonId(), personDTO.getPersonId()) && Objects.equals(getFirstName(), personDTO.getFirstName()) && Objects.equals(getLastName(), personDTO.getLastName()) && Objects.equals(getGender(), personDTO.getGender()) && Objects.equals(getAddress(), personDTO.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getPersonId(), getFirstName(), getLastName(), getGender(), getAdress());
+        return Objects.hash(super.hashCode(), getPersonId(), getFirstName(), getLastName(), isEnabled(), getGender(), getAddress());
     }
 }
