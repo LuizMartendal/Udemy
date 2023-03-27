@@ -6,6 +6,7 @@ import br.com.erudio.restwithspringbootudemy.models.person.PersonModel;
 import br.com.erudio.restwithspringbootudemy.repositories.person.PersonRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +24,14 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
-    public List<PersonDTO> findAll(Pageable pageable) {
-        List<PersonDTO> personDTOS = new ArrayList<>();
-        repository.findAll(pageable)
-            .forEach(person -> {
+    public Page<PersonDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable)
+            .map(personModel -> {
                 PersonDTO personDTO = new PersonDTO();
-                BeanUtils.copyProperties(person, personDTO);
+                BeanUtils.copyProperties(personModel, personDTO);
                 personDTO.add(linkTo(methodOn(PersonController.class).findById(personDTO.getPersonId())).withSelfRel());
-                personDTOS.add(personDTO);
+                return personDTO;
             });
-        return personDTOS;
     }
 
     public PersonDTO findById(Long id) {
