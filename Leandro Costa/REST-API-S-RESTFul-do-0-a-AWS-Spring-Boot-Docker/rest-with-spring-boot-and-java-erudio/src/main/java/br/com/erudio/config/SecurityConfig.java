@@ -1,8 +1,7 @@
 package br.com.erudio.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import br.com.erudio.security.jwt.JwtConfigurer;
+import br.com.erudio.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,12 +14,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.erudio.security.jwt.JwtConfigurer;
-import br.com.erudio.security.jwt.JwtTokenProvider;
+import java.util.HashMap;
+import java.util.Map;
 
 @EnableWebSecurity
 @Configuration
