@@ -1,9 +1,12 @@
 package com.spring_boot_expert.springbootexpert.dtos;
 
+import com.spring_boot_expert.springbootexpert.models.ClienteModel;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serializable;
 import java.util.UUID;
 
-public class ClienteDTO implements Serializable {
+public class ClienteDTO extends RepresentationModel<ClienteDTO> implements Serializable {
 
     private UUID id;
     private String nome;

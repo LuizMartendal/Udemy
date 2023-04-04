@@ -3,6 +3,7 @@ package com.spring_boot_expert.springbootexpert.models;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "produto")
-public class ProdutoModel implements Serializable {
+public class ProdutoModel extends RepresentationModel<ProdutoModel> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

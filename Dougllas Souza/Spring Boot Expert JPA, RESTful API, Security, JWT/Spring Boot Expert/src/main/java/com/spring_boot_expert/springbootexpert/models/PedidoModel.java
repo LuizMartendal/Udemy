@@ -1,9 +1,11 @@
 package com.spring_boot_expert.springbootexpert.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring_boot_expert.springbootexpert.enuns.StatusPedido;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,7 +17,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "pedido")
-public class PedidoModel implements Serializable {
+public class PedidoModel extends RepresentationModel<PedidoModel> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -36,17 +38,23 @@ public class PedidoModel implements Serializable {
     @Column
     private Double total;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status = StatusPedido.REALIZADO;
+
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedidoModel> itens;
 
     public PedidoModel() {
     }
 
-    public PedidoModel(UUID id, ClienteModel cliente, Date dataPedido, Double total) {
+    public PedidoModel(UUID id, ClienteModel cliente, Date dataPedido, Double total, StatusPedido status, List<ItemPedidoModel> itens) {
         this.id = id;
         this.cliente = cliente;
         this.dataPedido = dataPedido;
         this.total = total;
+        this.status = status;
+        this.itens = itens;
     }
 
     public UUID getId() {
@@ -81,23 +89,19 @@ public class PedidoModel implements Serializable {
         this.total = total;
     }
 
+    public StatusPedido getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPedido status) {
+        this.status = status;
+    }
+
     public List<ItemPedidoModel> getItens() {
         return itens;
     }
 
     public void setItens(List<ItemPedidoModel> itens) {
         this.itens = itens;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PedidoModel that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getCliente(), that.getCliente()) && Objects.equals(getDataPedido(), that.getDataPedido()) && Objects.equals(getTotal(), that.getTotal()) && Objects.equals(getItens(), that.getItens());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getCliente(), getDataPedido(), getTotal(), getItens());
     }
 }

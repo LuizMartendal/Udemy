@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS pedido (
     cliente_id char(36) NOT NULL,
     data_pedido date NOT NULL,
     total numeric(20,2),
+    status varchar(20),
     PRIMARY KEY (id),
     FOREIGN KEY (cliente_id) REFERENCES cliente (id)
     );
