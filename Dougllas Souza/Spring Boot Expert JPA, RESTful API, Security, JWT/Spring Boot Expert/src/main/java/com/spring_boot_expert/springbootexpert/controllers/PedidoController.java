@@ -8,8 +8,8 @@ import com.spring_boot_expert.springbootexpert.exceptions.NaoEncontradoException
 import com.spring_boot_expert.springbootexpert.models.ItemPedidoModel;
 import com.spring_boot_expert.springbootexpert.models.PedidoModel;
 import com.spring_boot_expert.springbootexpert.services.PedidoService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -39,31 +38,31 @@ public class PedidoController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public PagedModel<EntityModel<InformacoesPedidoDTO>> findAll(@RequestParam(value = "size", defaultValue = "10") int size,
-                                                                @RequestParam(value = "page", defaultValue = "0") int page,
+    public PagedModel<EntityModel<InformacoesPedidoDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                                @RequestParam(value = "size", defaultValue = "10") int size,
                                                                 @RequestParam(value = "direction", defaultValue = "asc") String direction)
     {
-        Sort.Direction d = direction.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort.Direction d = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(d, "cliente"));
-        return null;
+        return service.findAll(pageable);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public InformacoesPedidoDTO findById(@PathVariable UUID id) {
+    public InformacoesPedidoDTO findById(@PathVariable @NotNull UUID id) {
         return this.service.findById(id)
                 .map(this::converterPedidoToDto).orElseThrow(() -> new NaoEncontradoException("Pedido não encontrado!"));
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateStatus(@PathVariable UUID id,
+    public void updateStatus(@PathVariable @NotNull UUID id,
                              @RequestBody StatusPedidoDTO status)
     {
         this.service.updateStatus(id, status);
     }
 
-    private InformacoesPedidoDTO converterPedidoToDto(PedidoModel pedidoModel) {
+    private InformacoesPedidoDTO converterPedidoToDto(@NotNull PedidoModel pedidoModel) {
         InformacoesPedidoDTO dto = new InformacoesPedidoDTO();
 
         dto.setCodigo(pedidoModel.getId());
@@ -76,7 +75,7 @@ public class PedidoController {
         return dto;
     }
 
-    private List<InformacoesItemPedidoDTO> converterItensToDto(List<ItemPedidoModel> itens) {
+    private List<InformacoesItemPedidoDTO> converterItensToDto(@NotNull List<ItemPedidoModel> itens) {
         List<InformacoesItemPedidoDTO> itensDto = new ArrayList<>();
         for (ItemPedidoModel item: itens) {
             InformacoesItemPedidoDTO itemDto = new InformacoesItemPedidoDTO();

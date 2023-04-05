@@ -2,6 +2,7 @@ package com.spring_boot_expert.springbootexpert.controllers;
 
 import com.spring_boot_expert.springbootexpert.models.ProdutoModel;
 import com.spring_boot_expert.springbootexpert.services.ProdutoService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,25 +34,25 @@ public class ProdutoController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProdutoModel findById(@PathVariable UUID id) {
+    public ProdutoModel findById(@PathVariable @NotNull UUID id) {
         return service.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProdutoModel create(@RequestBody ProdutoModel produtoModel) {
+    public ProdutoModel create(@RequestBody @NotNull ProdutoModel produtoModel) {
         return service.create(produtoModel);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProdutoModel update(@RequestBody ProdutoModel produtoModel, @PathVariable UUID id) {
+    public ProdutoModel update(@RequestBody @NotNull ProdutoModel produtoModel, @PathVariable @NotNull UUID id) {
         return service.update(produtoModel,id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID id) {
+    public void delete(@PathVariable @NotNull UUID id) {
         service.delete(id);
     }
 }

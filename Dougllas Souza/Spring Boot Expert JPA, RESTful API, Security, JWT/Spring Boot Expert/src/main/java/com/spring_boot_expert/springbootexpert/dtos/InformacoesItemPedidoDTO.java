@@ -1,8 +1,10 @@
 package com.spring_boot_expert.springbootexpert.dtos;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-public class InformacoesItemPedidoDTO {
+public class InformacoesItemPedidoDTO extends RepresentationModel<InformacoesItemPedidoDTO> {
     private String descricaoProduto;
     private Double precoUnitario;
     private int quantidade;

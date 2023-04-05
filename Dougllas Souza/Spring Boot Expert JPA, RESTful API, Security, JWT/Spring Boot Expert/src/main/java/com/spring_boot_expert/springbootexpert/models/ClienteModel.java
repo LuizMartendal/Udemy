@@ -2,6 +2,7 @@ package com.spring_boot_expert.springbootexpert.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Type;
@@ -27,9 +28,11 @@ public class ClienteModel implements Serializable {
     private UUID id;
 
     @Column(nullable = false, length = 100)
+    @NotNull
     private String nome;
 
     @Column(nullable = false, length = 20, name = "cpf")
+    @NotNull
     private String cpf;
 
     @JsonIgnore

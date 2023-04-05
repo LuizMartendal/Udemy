@@ -1,9 +1,8 @@
 package com.spring_boot_expert.springbootexpert.services;
 
 import com.spring_boot_expert.springbootexpert.controllers.PedidoController;
-import com.spring_boot_expert.springbootexpert.dtos.ItemPedidoDTO;
-import com.spring_boot_expert.springbootexpert.dtos.PedidoDTO;
-import com.spring_boot_expert.springbootexpert.dtos.StatusPedidoDTO;
+import com.spring_boot_expert.springbootexpert.controllers.ProdutoController;
+import com.spring_boot_expert.springbootexpert.dtos.*;
 import com.spring_boot_expert.springbootexpert.exceptions.IsNullException;
 import com.spring_boot_expert.springbootexpert.exceptions.NaoEncontradoException;
 import com.spring_boot_expert.springbootexpert.models.ClienteModel;
@@ -24,10 +23,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -45,14 +41,14 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
-    public PagedModel<EntityModel<PedidoModel>> findAll(Pageable pageable) {
-        Page<PedidoModel> pedidos = pedidoRepository.findAll(pageable)
+    public PagedModel<EntityModel<InformacoesPedidoDTO>> findAll(Pageable pageable) {
+        Page<InformacoesPedidoDTO> pedidos = pedidoRepository.findAll(pageable)
                 .map(pedido -> {
-                    pedido.add(linkTo(methodOn(PedidoController.class).findById(pedido.getId())).withSelfRel());
-                    return pedido;
+                    InformacoesPedidoDTO dto = converterPedidoToDto(pedido);
+                    return dto.add(linkTo(methodOn(PedidoController.class).findById(dto.getCodigo())).withSelfRel());
                 });
         Link link = linkTo(methodOn(PedidoController.class).findAll(pageable.getPageNumber(), pageable.getPageSize(), "ASC")).withSelfRel();
-        PagedResourcesAssembler<PedidoModel> assembler = new PagedResourcesAssembler<>(null, null);
+        PagedResourcesAssembler<InformacoesPedidoDTO> assembler = new PagedResourcesAssembler<>(null, null);
         return assembler.toModel(pedidos, link);
     }
 
@@ -117,5 +113,30 @@ public class PedidoService {
                     itemPedidoModel.setProduto(produto);
                     return itemPedidoModel;
                 }).collect(Collectors.toList());
+    }
+
+    private InformacoesPedidoDTO converterPedidoToDto(PedidoModel pedidoModel) {
+        InformacoesPedidoDTO dto = new InformacoesPedidoDTO();
+
+        dto.setCodigo(pedidoModel.getId());
+        dto.setCfp(pedidoModel.getCliente().getCpf());
+        dto.setNomeCliente(pedidoModel.getCliente().getNome());
+        dto.setDataPedido(pedidoModel.getDataPedido());
+        dto.setTotal(pedidoModel.getTotal());
+        dto.setStatus(pedidoModel.getStatus());
+        dto.setItens(converterItensToDto(pedidoModel.getItens()));
+        return dto;
+    }
+
+    private List<InformacoesItemPedidoDTO> converterItensToDto(List<ItemPedidoModel> itens) {
+        List<InformacoesItemPedidoDTO> itensDto = new ArrayList<>();
+        for (ItemPedidoModel item: itens) {
+            InformacoesItemPedidoDTO itemDto = new InformacoesItemPedidoDTO();
+            itemDto.setDescricaoProduto(item.getProduto().getDescricao());
+            itemDto.setQuantidade(item.getQuantidade());
+            itemDto.setPrecoUnitario(item.getProduto().getPrecoUnitario());
+            itensDto.add(itemDto);
+        }
+        return itensDto;
     }
 }

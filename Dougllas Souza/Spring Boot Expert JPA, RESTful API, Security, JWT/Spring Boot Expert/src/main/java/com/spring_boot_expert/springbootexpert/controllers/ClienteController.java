@@ -2,6 +2,8 @@ package com.spring_boot_expert.springbootexpert.controllers;
 
 import com.spring_boot_expert.springbootexpert.dtos.ClienteDTO;
 import com.spring_boot_expert.springbootexpert.services.ClienteService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,25 +36,25 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ClienteDTO findById(@PathVariable UUID id) {
+    public ClienteDTO findById(@PathVariable @NotNull UUID id) {
         return service.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ClienteDTO create(@RequestBody ClienteDTO clienteDTO) {
+    public ClienteDTO create(@RequestBody @Valid ClienteDTO clienteDTO) {
         return service.create(clienteDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ClienteDTO update(@RequestBody ClienteDTO clienteDTO, @PathVariable UUID id) {
+    public ClienteDTO update(@RequestBody @Valid ClienteDTO clienteDTO, @PathVariable @NotNull UUID id) {
         return service.update(clienteDTO,id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID id) {
+    public void delete(@PathVariable @NotNull UUID id) {
         service.delete(id);
     }
 }

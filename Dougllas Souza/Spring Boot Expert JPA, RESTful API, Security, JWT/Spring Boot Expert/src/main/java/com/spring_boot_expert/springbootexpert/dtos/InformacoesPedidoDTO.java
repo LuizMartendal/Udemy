@@ -1,12 +1,13 @@
 package com.spring_boot_expert.springbootexpert.dtos;
 
 import com.spring_boot_expert.springbootexpert.enuns.StatusPedido;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class InformacoesPedidoDTO {
+public class InformacoesPedidoDTO extends RepresentationModel<InformacoesPedidoDTO> {
 
     private UUID codigo;
     private String cfp;
