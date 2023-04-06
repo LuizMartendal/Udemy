@@ -1,13 +1,12 @@
 package com.spring_boot_expert.springbootexpert.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.Type;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.sql.Types;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -21,7 +20,7 @@ public class ProdutoModel extends RepresentationModel<ProdutoModel> implements S
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @JdbcTypeCode(Types.CHAR)
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
 
     @Column(nullable = false)

@@ -1,8 +1,8 @@
 package com.spring_boot_expert.springbootexpert.dtos;
 
 import com.spring_boot_expert.springbootexpert.models.ClienteModel;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;

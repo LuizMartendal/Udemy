@@ -1,8 +1,8 @@
 package com.spring_boot_expert.springbootexpert.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.Type;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -19,7 +19,7 @@ public class ItemPedidoModel implements Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @JdbcTypeCode(Types.CHAR)
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
 
     @ManyToOne

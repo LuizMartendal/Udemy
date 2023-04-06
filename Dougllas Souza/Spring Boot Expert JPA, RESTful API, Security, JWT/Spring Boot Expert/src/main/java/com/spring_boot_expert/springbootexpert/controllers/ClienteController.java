@@ -2,10 +2,9 @@ package com.spring_boot_expert.springbootexpert.controllers;
 
 import com.spring_boot_expert.springbootexpert.dtos.ClienteDTO;
 import com.spring_boot_expert.springbootexpert.services.ClienteService;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

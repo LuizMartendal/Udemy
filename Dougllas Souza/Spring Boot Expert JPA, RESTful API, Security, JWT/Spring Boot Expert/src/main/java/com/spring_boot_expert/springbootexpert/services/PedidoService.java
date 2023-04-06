@@ -13,7 +13,7 @@ import com.spring_boot_expert.springbootexpert.repositories.ClienteRepository;
 import com.spring_boot_expert.springbootexpert.repositories.ItemPedidoRepository;
 import com.spring_boot_expert.springbootexpert.repositories.PedidoRepository;
 import com.spring_boot_expert.springbootexpert.repositories.ProdutoRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

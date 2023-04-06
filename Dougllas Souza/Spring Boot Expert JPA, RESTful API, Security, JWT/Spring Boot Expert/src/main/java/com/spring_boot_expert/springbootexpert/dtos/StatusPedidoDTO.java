@@ -1,8 +1,8 @@
 package com.spring_boot_expert.springbootexpert.dtos;
 
 import com.spring_boot_expert.springbootexpert.enuns.StatusPedido;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 public class StatusPedidoDTO {
 
