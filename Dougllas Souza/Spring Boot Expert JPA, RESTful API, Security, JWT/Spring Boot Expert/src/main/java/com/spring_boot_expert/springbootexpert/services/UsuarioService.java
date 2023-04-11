@@ -1,6 +1,9 @@
 package com.spring_boot_expert.springbootexpert.services;
 
+import com.spring_boot_expert.springbootexpert.dtos.CredentialsDTO;
+import com.spring_boot_expert.springbootexpert.dtos.TokenDTO;
 import com.spring_boot_expert.springbootexpert.dtos.UsuarioDTO;
+import com.spring_boot_expert.springbootexpert.exceptions.SenhaInvalidaException;
 import com.spring_boot_expert.springbootexpert.models.UsuarioModel;
 import com.spring_boot_expert.springbootexpert.repositories.UsuarioRepository;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +23,8 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private UsuarioRepository repository;
 
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UsuarioModel usuario = repository.findByUsuario(s)
@@ -36,10 +41,19 @@ public class UsuarioService implements UserDetailsService {
 
     @Transactional
     public UsuarioDTO create(UsuarioModel usuario) {
-        usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getPassword()));
+        usuario.setSenha(encoder.encode(usuario.getPassword()));
         UsuarioModel usuarioModel = repository.save(usuario);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         BeanUtils.copyProperties(usuarioModel, usuarioDTO);
         return usuarioDTO;
+    }
+
+    public UserDetails autenticar(CredentialsDTO credenciais) {
+        UserDetails user = loadUserByUsername(credenciais.getUsuario());
+        boolean senhaIsValid = encoder.matches(credenciais.getSenha(), user.getPassword());
+        if (senhaIsValid) {
+            return user;
+        }
+        throw new SenhaInvalidaException("Senha inválida!");
     }
 }

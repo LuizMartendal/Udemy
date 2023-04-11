@@ -34,4 +34,10 @@ public class ApplicationControllerAdvice {
         return new ApiErrors(errors);
     }
 
+    @ExceptionHandler(SenhaInvalidaException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleSenhaInvalidaException(SenhaInvalidaException ex) {
+        return new ApiErrors(ex.getMessage());
+    }
+
 }

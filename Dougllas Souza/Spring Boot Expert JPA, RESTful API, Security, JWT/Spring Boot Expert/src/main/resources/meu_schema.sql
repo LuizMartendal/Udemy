@@ -31,3 +31,11 @@ CREATE TABLE IF NOT EXISTS item_pedido (
     FOREIGN KEY (pedido_id) REFERENCES pedido (id),
     FOREIGN KEY (produto_id) REFERENCES produto (id)
     );
+
+CREATE TABLE IF NOT EXISTS usuario (
+    id char(36) NOT NULL,
+    usuario varchar(100) NOT NULL UNIQUE,
+    senha varchar(100) NOT NULL,
+    admin bit NOT NULL,
+    PRIMARY KEY (id)
+    );
