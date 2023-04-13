@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CidadeController extends ControllerImpl<Cidade> {
 
     @Autowired
-    private CidadeService service;
+    public CidadeService service;
 
     @Override
     public Service<Cidade> getService() {

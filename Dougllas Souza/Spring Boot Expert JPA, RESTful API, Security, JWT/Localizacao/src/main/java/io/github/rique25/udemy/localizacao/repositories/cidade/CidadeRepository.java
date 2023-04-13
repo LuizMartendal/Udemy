@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CidadeRepository extends io.github.rique25.udemy.localizacao.repositories.Repository<Cidade> {
+public interface CidadeRepository extends JpaRepository<Cidade, UUID> {
 
     Optional<List<Cidade>> findByNome(String nome);
 

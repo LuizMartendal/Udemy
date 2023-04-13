@@ -18,7 +18,7 @@ import java.util.UUID;
 public class CidadeService extends ServiceImpl<Cidade> {
 
     @Autowired
-    private CidadeRepository repository;
+    public CidadeRepository repository;
 
     @Override
     public JpaRepository<Cidade, UUID> getRepository() {
