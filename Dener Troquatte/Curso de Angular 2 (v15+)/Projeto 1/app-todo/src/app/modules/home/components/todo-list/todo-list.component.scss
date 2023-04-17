@@ -1,0 +1,53 @@
+@import '../../../../../dist/scss/variables.scss';
+
+ul {
+  list-style: none;
+  padding: 3vw;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    input {
+      &[type="checkbox"] {
+        width: 5%;
+      }
+      &[type="text"] {
+        width: 80%;
+        padding: 5px 10px;
+        border: none;
+
+        font-size: 16px;
+        color: $primary-text-color;
+        &.checked {
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+}
+
+section {
+  width: 100%;
+  min-height: 250px;
+
+  background-color: $secondary-background-color;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
+
+  &.loading {
+    background-image: url("../../../../../assets/icons/download.jpg");
+    background-repeat: no-repeat;
+    background-position: center 30px;
+  }
+}
+
+button {
+  border: 0px;
+  img {
+    height: 2vw;
+  }
+}
