@@ -13,8 +13,8 @@ export class TodoListComponent implements DoCheck {
   constructor() { }
 
   ngDoCheck(): void {
-    this.setListToLocalStorage();
     this.getListFromLocalStorage();
+    this.setListToLocalStorage();
   }
 
   setItemTaskList(event: any) {
