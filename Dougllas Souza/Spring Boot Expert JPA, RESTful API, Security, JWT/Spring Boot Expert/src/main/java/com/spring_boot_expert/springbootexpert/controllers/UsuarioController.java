@@ -34,16 +34,16 @@ public class UsuarioController {
         return service.create(usuario);
     }
 
-//    @PostMapping("/auth")
-//    public TokenDTO autenticar(@RequestBody CredentialsDTO credenciais) {
-//        try {
-//            UserDetails usuario = service.autenticar(credenciais);
-//            String token = jwtService.gerarToken(usuario);
-//            return new TokenDTO(usuario.getUsername(), token);
-//        } catch (UsernameNotFoundException unfe) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, unfe.getMessage());
-//        } catch (SenhaInvalidaException sie) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, sie.getMessage());
-//        }
-//    }
+    @PostMapping("/auth")
+    public TokenDTO autenticar(@RequestBody CredentialsDTO credenciais) {
+        try {
+            UserDetails usuario = service.autenticar(credenciais);
+            String token = jwtService.gerarToken(usuario);
+            return new TokenDTO(usuario.getUsername(), token);
+        } catch (UsernameNotFoundException unfe) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, unfe.getMessage());
+        } catch (SenhaInvalidaException sie) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, sie.getMessage());
+        }
+    }
 }
