@@ -1,1 +1,30 @@
-<p>details works!</p>
+<app-poke-header></app-poke-header>
+
+<main *ngIf="pokemon">
+  <section class="pokemon-names">
+    <h1>{{ pokemon[0]?.name }}</h1>
+    <h2>{{ pokemon[1]?.names[0]?.name }}</h2>
+  </section>
+
+  <section class="pokemon-status">
+    <img [src]="pokemon[0].sprites.other.dream_world.front_default"
+         [alt]="pokemon[0].name">
+
+    <article class="pokemon-status-statistics">
+      <section>
+        <h3>Estatísticas</h3>
+
+        <ol>
+          <li *ngFor="let value of pokemon[0].status">
+            {{ value.stat.name }}
+            <strong>
+              {{ value.base_stat }}
+            </strong>
+          </li>
+        </ol>
+
+      </section>
+    </article>
+
+  </section>
+</main>
