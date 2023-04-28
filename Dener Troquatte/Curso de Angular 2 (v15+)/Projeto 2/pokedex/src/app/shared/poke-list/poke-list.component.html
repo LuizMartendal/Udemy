@@ -1,5 +1,5 @@
 <app-poke-search (emitSearch)="search($event)"></app-poke-search>
-<section>
+<section *ngIf="!isLoading" class="slideInUp">
   <ng-template ngFor let-pokemon [ngForOf]="pokemons">
     <a [routerLink]="['details', pokemon.status.id]" class="pokemon" *ngIf="pokemon.status">
       <section class="pokemon-status">
@@ -28,6 +28,10 @@
       (page)="onPage($event)">
     </mat-paginator>
   </div>
+</section>
+
+<section *ngIf="isLoading" class="errorImage">
+  <img src="../../../assets/imgs/foraDoAr.png" alt="">
 </section>
 
 

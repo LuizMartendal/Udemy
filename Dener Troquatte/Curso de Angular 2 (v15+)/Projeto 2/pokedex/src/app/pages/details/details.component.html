@@ -1,21 +1,23 @@
 <app-poke-header></app-poke-header>
 
-<main *ngIf="pokemon">
-  <section class="pokemon-names">
+<main *ngIf="pokemon" class="fadeIn">
+  <section class="pokemon-names slideInDown">
     <h1>{{ pokemon[0]?.name }}</h1>
     <h2>{{ pokemon[1]?.names[0]?.name }}</h2>
   </section>
 
   <section class="pokemon-status">
     <img [src]="pokemon[0].sprites.other.dream_world.front_default"
-         [alt]="pokemon[0].name">
+         [alt]="pokemon[0].name"
+         class="fadeIn"
+    >
 
     <article class="pokemon-status-statistics">
       <section>
-        <h3>Estatísticas</h3>
+        <h3 class="slideInDown">Estatísticas</h3>
 
         <ol>
-          <li *ngFor="let value of pokemon[0].status">
+          <li *ngFor="let value of pokemon[0].stats" class="slideInDown">
             {{ value.stat.name }}
             <strong>
               {{ value.base_stat }}
@@ -23,6 +25,9 @@
           </li>
         </ol>
 
+        <a [routerLink]="['']" class="btn slideInUp">
+          Voltar
+        </a>
       </section>
     </article>
 

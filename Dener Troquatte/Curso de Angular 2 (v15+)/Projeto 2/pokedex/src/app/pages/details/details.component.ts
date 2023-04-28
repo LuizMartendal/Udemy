@@ -22,11 +22,10 @@ export class DetailsComponent implements OnInit{
     this.getPokemon;
   }
 
-  get getPokemon() {
+  getPokemon() {
     const id = this.activetedRouter.snapshot.params['id'];
     const pokemon =  this.pokeApiService.apiGetPokemons(`${this.urlPokemon}/${id}`);
     const name = this.pokeApiService.apiGetPokemons(`${this.urlPokemon}-species/${id}`)
-
     return forkJoin([pokemon, name]).subscribe(
       res => {
         this.pokemon = res;

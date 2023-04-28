@@ -10,6 +10,7 @@ export class PokeListComponent implements OnInit {
 
   pokemons: any = null
   pokemonsBackup: any = null
+  isLoading: boolean = true;
 
   min: number = 0
   max: number = 10
@@ -27,6 +28,7 @@ export class PokeListComponent implements OnInit {
         this.total = res.count
         this.pokemonsBackup = res.results
         this.pokemons = res.results
+        this.isLoading = false
       }
     )
   }
