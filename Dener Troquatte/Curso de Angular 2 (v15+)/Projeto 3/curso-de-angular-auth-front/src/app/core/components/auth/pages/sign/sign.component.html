@@ -1,0 +1,29 @@
+<div class="container">
+  <img src="../../../../../../assets/imgs/Angular.png" alt="Logo">
+
+  <form [formGroup]="formAuth">
+    <label>
+      <img src="../../../../../../assets/imgs/Email.png" alt="">
+      <input
+      type="email"
+      name="email"
+      id="email_input"
+      placeholder="Email"
+      formControlName="email">
+    </label>
+
+    <label>
+      <img src="../../../../../../assets/imgs/Password.png" alt="">
+      <input
+      type="password"
+      name="password"
+      id="password_input"
+      placeholder="Senha"
+      formControlName="senha">
+    </label>
+
+    <button [disabled]="formAuth.invalid" (click)="submitForm()">Login</button>
+    <span *ngIf="formAuth.invalid && formAuth.touched">preencha os campos corretamente</span>
+    <span *ngIf="msgErr">{{ msgErr }}</span>
+  </form>
+</div>

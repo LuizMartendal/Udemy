@@ -1,0 +1,104 @@
+.container {
+  height: 55vh;
+  width: 35vw;
+  padding: 5vh 5vw 5vw 5vh;
+
+  background-color: var(--branco);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  border-radius: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    position: relative;
+    left: 5%;
+    margin-bottom: 6vh;
+  }
+
+  form {
+    position: relative;
+    left: 1vw;
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    label {
+      border-bottom: 1px solid black;
+
+      width: 100%;
+      height: 20%;
+
+      margin-top: 3vh;
+      padding-bottom: 1vh;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      img {
+        width: 1vw;
+        height: 3vh;
+
+        position: relative;
+        left: 0%;
+        top: 3vh;
+        margin-right: 1vw;
+      }
+
+      @media screen and (max-width: 920px) {
+        img {
+          width: 2vw;
+        }
+      }
+
+      input {
+        border: none;
+        outline: none;
+
+        width: 100%;
+        height: 100%;
+
+        font-size: 1.3vw;
+        font-weight: 500;
+
+        color: var(--preto);
+      }
+
+      ::placeholder {
+        color: var(--preto);
+      }
+    }
+
+    button {
+      margin-top: 6vh;
+      border: none;
+      border-radius: 1rem;
+
+      padding: 2vh 2vw;
+      font-size: 1.3vw;
+
+      width: 100%;
+
+      background-color: var(--vermelho);
+      color: var(--branco);
+    }
+
+    button:hover {
+      background-color: rgb(168, 0, 0);
+      cursor: pointer;
+    }
+
+    span {
+      color: var(--vermelho);
+      margin-top: 1vh;
+    }
+  }
+}

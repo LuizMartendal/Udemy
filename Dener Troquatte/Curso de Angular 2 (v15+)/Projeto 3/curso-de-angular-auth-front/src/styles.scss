@@ -1,0 +1,23 @@
+:root {
+  --branco: #FFFFFF;
+  --preto: #4A4A4A;
+  --vermelho: #DD0330;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+body {
+  height: 100vh;
+  background: url("./assets/imgs/Bg.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
