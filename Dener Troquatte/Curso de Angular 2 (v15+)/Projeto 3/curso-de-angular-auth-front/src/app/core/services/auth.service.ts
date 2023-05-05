@@ -22,11 +22,10 @@ export class AuthService {
     return this.http.post(`${this.url}/sign`, user)
     .pipe(
       map((data) => {
-        return console.log(data);
+        return data;
       }),
       catchError((err) => {
         if (err.status == 500) {
-          console.log(err);
           return throwError(() => err.error.message);
         }
         return throwError(() => 'Há um problema com o servidor. Tente novamente mais tarde')

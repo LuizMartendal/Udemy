@@ -29,7 +29,7 @@ export class SignComponent {
       this.service.sign(new User(this.formAuth.value.email, this.formAuth.value.senha))
         .subscribe({
           next: (res) => {
-            localStorage.setItem('accessToken', JSON.stringify(res.token));
+            localStorage.setItem('accessToken', res.token);
             return this.router.navigate(['admin']);
           },
           error: (err) => {
