@@ -1,54 +1,16 @@
-.container {
-  height: 55vh;
-  width: 35vw;
-  padding: 5vh 5vw 5vw 5vh;
-
-  background-color: var(--branco);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  box-sizing: border-box;
-  border-radius: 1em;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  img {
-    position: relative;
-    left: 1vw;
-    margin-bottom: 6vh;
-  }
-
-  button {
-    margin-top: 6vh;
-    border: none;
+:host > .container {
     border-radius: 1rem;
-
-    padding: 2vh 2vw;
-    font-size: 1.3vw;
-
-    width: 100%;
-
-    background-color: var(--vermelho);
-    color: var(--branco);
-
     position: relative;
-    left: 1vw;
-    top: 15%;
-  }
+    left: 25vw;
+    text-transform: uppercase;
+    text-size-adjust: inherit;
 
-  button:hover {
-    background-color: rgb(168, 0, 0);
-    cursor: pointer;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-  span {
-    position: relative;
-    left: 1vw;
-
-    font-size: 1.5vw;
-    font-weight: 500;
-
-    color: var(--vermelho);
-  }
+    width: 50vw;
+    height: 70vh;
 }
+

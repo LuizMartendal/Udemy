@@ -14,8 +14,5 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.authService.isAutenticated()) {
-      this.router.navigate(['admin']);
-    }
   }
 }
