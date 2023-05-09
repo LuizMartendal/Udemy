@@ -23,8 +23,8 @@ public class Cliente {
     @Column(name = "id", columnDefinition = "char(36)")
     private UUID id;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Nome é um campo obrigatório")
+    @NotEmpty(message = "Nome é um campo obrigatório")
     @Column(nullable = false, length = 100)
     private String nome;
 
@@ -35,4 +35,9 @@ public class Cliente {
 
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro;
+
+    @PrePersist
+    public void prePersist() {
+        setDataCadastro(LocalDate.now());
+    }
 }

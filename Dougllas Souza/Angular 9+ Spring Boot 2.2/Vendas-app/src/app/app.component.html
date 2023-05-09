@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <span>Vendas App</span>
+  <button (click)="drawer.toggle()" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <button mat-icon-button color="primary">
+      <mat-icon>menu</mat-icon>
+      home
+    </button>
+  </mat-drawer>
+</mat-drawer-container>
