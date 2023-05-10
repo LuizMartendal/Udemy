@@ -6,7 +6,10 @@ mat-toolbar {
 }
 
 .container {
-  width: 8vw;
+  position: absolute;
+  left: 0;
+
+  width: 6vw;
   height: 100vh;
   background-color: white;
 }
@@ -19,7 +22,7 @@ mat-toolbar {
     width: 5vw;
     height: 10vh;
 
-    margin-left: 1.5vw;
+    margin-left: 0.5vw;
     margin-top: 2vh;
 
     display: flex;
