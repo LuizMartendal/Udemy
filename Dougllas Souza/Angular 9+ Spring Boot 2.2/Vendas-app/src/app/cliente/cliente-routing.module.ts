@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CadastrarComponent } from './cadastrar/cadastrar.component';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { ListaClientesComponent } from './lista-clientes/lista-clientes.component';
 
 const routes: Routes = [
   {
-    path: 'sign',
-    component: CadastrarComponent
+    path: '', redirectTo: 'clientes', pathMatch: 'full'
+  },
+  {
+    path: 'cadastrar', component: CadastroComponent
+  },
+  {
+    path: 'clientes', component: ListaClientesComponent
   }
 ];
 

@@ -22,6 +22,9 @@ public class ClienteService {
         if (cliente.getId() != null) {
             throw new BadRequestException("Id deve ser null");
         }
+        if (repository.findByCpf(cliente.getCpf()) != null) {
+            throw new BadRequestException("Já existe um cliente com esse cpf cadastrado");
+        }
         return repository.save(cliente);
     }
 
@@ -30,7 +33,6 @@ public class ClienteService {
         return this.repository.findById(id).map( c -> {
             cliente.setId(c.getId());
             cliente.setDataCadastro(c.getDataCadastro());
-            System.out.println(cliente);
             return this.repository.save(cliente);
         }).orElseThrow(() -> new BadRequestException("Cliente não encontrado!"));
     }

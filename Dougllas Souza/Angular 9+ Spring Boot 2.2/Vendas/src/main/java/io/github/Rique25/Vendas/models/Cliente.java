@@ -1,5 +1,6 @@
 package io.github.Rique25.Vendas.models;
 
+import io.github.Rique25.Vendas.enums.Sexo;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -32,6 +33,10 @@ public class Cliente {
     @NotEmpty
     @Column(nullable = false, length = 11)
     private String cpf;
+
+    @NotNull
+    @Column(nullable = false)
+    private Sexo sexo;
 
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro;

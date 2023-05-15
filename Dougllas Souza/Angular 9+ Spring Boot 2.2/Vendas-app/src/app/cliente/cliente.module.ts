@@ -1,17 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ClienteRoutingModule } from './cliente-routing.module';
-import { CadastrarComponent } from './cadastrar/cadastrar.component';
+import { ClienteComponent } from './header/cliente.component';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { SharedModule } from '../shared/shared.module';
+import { ListaClientesComponent } from './lista-clientes/lista-clientes.component';
 
 
 @NgModule({
   declarations: [
-    CadastrarComponent
+    ClienteComponent,
+    CadastroComponent,
+    ListaClientesComponent
   ],
   imports: [
     CommonModule,
-    ClienteRoutingModule
+    ClienteRoutingModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ClienteModule { }
