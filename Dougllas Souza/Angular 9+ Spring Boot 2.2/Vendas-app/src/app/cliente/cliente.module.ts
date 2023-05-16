@@ -3,17 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ClienteRoutingModule } from './cliente-routing.module';
-import { ClienteComponent } from './header/cliente.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
+import { FormComponent } from './form/form.component';
 import { SharedModule } from '../shared/shared.module';
 import { ListaClientesComponent } from './lista-clientes/lista-clientes.component';
 
 
 @NgModule({
   declarations: [
-    ClienteComponent,
     ListaClientesComponent,
-    CadastroComponent
+    FormComponent
   ],
   imports: [
     CommonModule,
@@ -21,9 +19,6 @@ import { ListaClientesComponent } from './lista-clientes/lista-clientes.componen
     SharedModule,
     FormsModule,
     ReactiveFormsModule
-  ],
-  exports: [
-    ClienteComponent
   ]
 })
 export class ClienteModule { }

@@ -1,7 +1,7 @@
-import { environment } from './../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cliente } from './models/Cliente';
+import { Cliente } from '../models/Cliente';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,6 +17,10 @@ export class ClienteService {
 
   salvar(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(`${this.URL}/cliente`, cliente);
+  }
+
+  update(cliente: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(`${this.URL}/cliente/${cliente.getId()}`, cliente);
   }
 
   list(params: any) {

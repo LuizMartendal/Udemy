@@ -1,11 +1,9 @@
-import { Component, OnInit, Output, ViewChild } from '@angular/core';
-import { Cliente } from '../models/Cliente';
-import { ClienteService } from '../cliente.service';
+import { Component, OnInit, Output } from '@angular/core';
+
+import { ClienteService } from '../service/cliente.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/material/dialog/dialog.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatTable } from '@angular/material/table';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-clientes',
@@ -21,7 +19,8 @@ import { Router } from '@angular/router';
 })
 export class ListaClientesComponent implements OnInit {
 
-  @Output() msgComponent: string = 'Aqui está a lista de clientes cadastrados'
+  @Output() msgComponent: string = 'Aqui está a lista de clientes cadastrados';
+  @Output() component: string = 'Cliente';
 
   displayedColumns: string[] = ['nome', 'cpf', 'sexo', 'dataCadastro', 'editar'];
   clientes = [];
@@ -52,10 +51,6 @@ export class ListaClientesComponent implements OnInit {
           }
         })
       });
-  }
-
-  edit(id: string) {
-
   }
 
   del(id: string) {

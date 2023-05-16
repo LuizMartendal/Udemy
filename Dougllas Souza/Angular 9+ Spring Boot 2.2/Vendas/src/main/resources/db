@@ -12,6 +12,7 @@ CREATE TABLE if NOT EXISTS servico (
 	servico VARCHAR(255) NOT NULL,
 	id_cliente CHAR(36) NOT NULL,
 	valor DECIMAL NOT NULL,
+	data_cadastro DATE NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id_cliente) REFERENCES cliente (id)
 );

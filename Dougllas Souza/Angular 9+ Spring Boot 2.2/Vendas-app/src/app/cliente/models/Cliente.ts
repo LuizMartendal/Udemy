@@ -1,5 +1,6 @@
 export class Cliente {
 
+  private id : string = '';
   private nome: string;
   private cpf: string;
   private sexo: number;
@@ -8,6 +9,14 @@ export class Cliente {
     this.nome = nome;
     this.cpf = cpf;
     this.sexo = sexo;
+  }
+
+  getId() {
+    return this.id;
+  }
+
+  setId(id: string) {
+    this.id = id;
   }
 
   getNome() {

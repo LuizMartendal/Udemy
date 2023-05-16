@@ -1,4 +1,6 @@
-<app-cliente [msgComponent]="msgComponent"></app-cliente>
+<app-header [msgComponent]="msgComponent"
+            [component]="component">
+</app-header>
 
 <div class="box">
 
@@ -43,7 +45,7 @@
           <button mat-icon-button class="delete" (click)="del(element.id)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button class="edit" (click)="edit(element.id)">
+          <button mat-icon-button class="edit" routerLink="/atualizar/{{ element.id }}">
             <mat-icon>edit</mat-icon>
           </button>
         </td>

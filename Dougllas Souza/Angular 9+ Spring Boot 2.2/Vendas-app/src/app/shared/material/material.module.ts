@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
     CommonModule,
   ],
   exports: [
+    MatSelectModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

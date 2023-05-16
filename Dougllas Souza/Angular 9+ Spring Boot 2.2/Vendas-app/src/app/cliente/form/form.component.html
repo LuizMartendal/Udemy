@@ -1,4 +1,6 @@
-<app-cliente [msgComponent]="msgComponent"></app-cliente>
+<app-header [msgComponent]="msgComponent"
+            [component]="component">
+</app-header>
 
 <div class="box">
   <button routerLink="/clientes" class="back" mat-icon-button>
@@ -38,8 +40,9 @@
           <button mat-raised-button routerLink="/clientes">Cancelar</button>
           <button [disabled]="formCliente.invalid"
                   mat-raised-button color="primary">
-                  Confirmar
+                  {{ cliente?.id ? 'Atualizar' : 'Cadastrar' }}
           </button>
+
         </div>
       </form>
 

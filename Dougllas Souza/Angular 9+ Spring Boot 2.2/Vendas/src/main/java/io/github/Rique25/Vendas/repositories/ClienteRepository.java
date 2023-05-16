@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
 
     Cliente findByCpf(String cpf);
+
+    Cliente findById(String id);
 }

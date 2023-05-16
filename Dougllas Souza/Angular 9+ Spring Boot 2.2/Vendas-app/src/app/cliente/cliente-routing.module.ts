@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListaClientesComponent } from './lista-clientes/lista-clientes.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
+import { FormComponent } from './form/form.component';
 
 const routes: Routes = [
   {
     path: '', redirectTo: 'clientes', pathMatch: 'full'
   },
   {
-    path: 'cadastrar', component: CadastroComponent
+    path: 'cadastrar', component: FormComponent
+  },
+  {
+    path: 'atualizar/:id', component: FormComponent
   },
   {
     path: 'clientes', component: ListaClientesComponent

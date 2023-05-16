@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { ClienteModule } from './cliente/cliente.module';
+import { ServicoModule } from './servico/servico.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ClienteModule } from './cliente/cliente.module';
     BrowserAnimationsModule,
     SharedModule,
     ClienteModule,
-    HttpClientModule
+    HttpClientModule,
+    ServicoModule
   ],
   exports: [
     SharedModule
