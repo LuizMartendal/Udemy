@@ -12,8 +12,8 @@ import { ListaClientesComponent } from './lista-clientes/lista-clientes.componen
 @NgModule({
   declarations: [
     ClienteComponent,
-    CadastroComponent,
-    ListaClientesComponent
+    ListaClientesComponent,
+    CadastroComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +21,9 @@ import { ListaClientesComponent } from './lista-clientes/lista-clientes.componen
     SharedModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    ClienteComponent
   ]
 })
 export class ClienteModule { }

@@ -4,7 +4,7 @@ import { Cliente } from '../models/Cliente';
 import { ClienteService } from '../cliente.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/material/dialog/dialog.component';
-import { delay, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -24,7 +24,8 @@ export class CadastroComponent {
   constructor(
     private formBuilder: FormBuilder,
     private clienteService: ClienteService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   onSubmit() {
@@ -43,18 +44,18 @@ export class CadastroComponent {
               msg: 'Cliente criado com sucesso!'
             }
           });
+          this.router.navigate(['./clientes'])
         },
         error: (err) => {
           this.dialog.open(DialogComponent, {
             data: {
               title: 'Erro!',
-              msg: err.error
+              msg: err.error.errors
             }
           });
         }
       });
+    this.formCliente.enable();
   }
-
-
 }
 

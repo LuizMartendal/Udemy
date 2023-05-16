@@ -4,6 +4,7 @@ import io.github.Rique25.Vendas.enums.Sexo;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -31,6 +32,7 @@ public class Cliente {
 
     @NotNull
     @NotEmpty
+    @Length(min = 11, max = 11, message = "CPF deve conter 11 caracteres!")
     @Column(nullable = false, length = 11)
     private String cpf;
 

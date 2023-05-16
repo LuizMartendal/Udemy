@@ -54,6 +54,7 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable UUID id) {
+        System.out.println("deleted");
         this.service.delete(id);
     }
 }

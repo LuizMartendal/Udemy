@@ -22,4 +22,12 @@ export class ClienteService {
   list(params: any) {
     return this.http.get(`${this.URL}/cliente`);
   }
+
+  getById(id: string) {
+    return this.http.get(`${this.URL}/cliente/${id}`);
+  }
+
+  delete(id: string) {
+    return this.http.delete(`${this.URL}/cliente/${id}`);
+  }
 }
