@@ -1,5 +1,6 @@
 package io.github.Rique25.Vendas.controllers;
 
+import io.github.Rique25.Vendas.dtos.ServicoDTO;
 import io.github.Rique25.Vendas.exceptions.BadRequestException;
 import io.github.Rique25.Vendas.models.Servico;
 import io.github.Rique25.Vendas.services.ServicoService;
@@ -22,12 +23,12 @@ public class ServicoController {
     private ServicoService service;
 
     @GetMapping
-    public Page<Servico> getClientes(@RequestParam(name = "page", defaultValue = "0") Integer page,
+    public Page<Servico> getServicos(@RequestParam(name = "page", defaultValue = "0") Integer page,
                                      @RequestParam(name = "size", defaultValue = "10") Integer size,
                                      @RequestParam(name = "direction", defaultValue = "asc") String direction)
     {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "nome"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "servico"));
         return this.service.getServicos(pageable);
     }
 
@@ -40,12 +41,12 @@ public class ServicoController {
     }
 
     @PostMapping
-    public Servico create(@Valid @RequestBody Servico servico) {
+    public Servico create(@RequestBody ServicoDTO servico) {
         return this.service.create(servico);
     }
 
     @PutMapping("/{id}")
-    public Servico update(@Valid @RequestBody Servico servico, @PathVariable UUID id) {
+    public Servico update(@RequestBody ServicoDTO servico, @PathVariable UUID id) {
         return this.service.update(servico, id);
     }
 

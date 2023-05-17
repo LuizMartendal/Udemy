@@ -38,6 +38,49 @@
       .delete {
         margin-right: 1vw;
       }
+      tr.detail-row {
+        height: 0;
+      }
+
+      .element-buttons {
+        display: flex;
+        flex-direction: row;
+
+        div {
+          margin-right: auto;
+        }
+      }
+
+      .element-detail {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .element-diagram {
+        span {
+          font-weight: 800;
+        }
+
+        min-width: 5vw;
+        font-weight: lighter;
+        margin: 8px 0;
+        height: 15vh;
+      }
+
+      .element-symbol {
+        font-weight: bold;
+        font-size: 40px;
+        line-height: normal;
+      }
+
+      .element-description {
+        padding: 16px;
+      }
+
+      .element-description-attribution {
+        opacity: 0.5;
+      }
     }
   }
 }

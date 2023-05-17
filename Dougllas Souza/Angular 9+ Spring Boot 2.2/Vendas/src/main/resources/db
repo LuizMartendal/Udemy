@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS cliente (
 CREATE TABLE if NOT EXISTS servico (
 	id CHAR(36) NOT NULL,
 	servico VARCHAR(255) NOT NULL,
+	descricao VARCHAR(255) NOT NULL,
 	id_cliente CHAR(36) NOT NULL,
 	valor DECIMAL NOT NULL,
 	data_cadastro DATE NOT NULL,

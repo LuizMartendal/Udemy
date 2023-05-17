@@ -15,7 +15,7 @@
             <input matInput formControlName="servico">
           </mat-form-field>
 
-          <mat-form-field>
+          <mat-form-field class="valor">
             <mat-label>Valor</mat-label>
             <input type="number" matInput formControlName="valor">
           </mat-form-field>
@@ -28,6 +28,11 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+
+          <label for="descricao" class="descricao">
+            Descrição
+            <textarea formControlName="descricao" cols="30" rows="10"></textarea>
+          </label>
 
         </div>
 

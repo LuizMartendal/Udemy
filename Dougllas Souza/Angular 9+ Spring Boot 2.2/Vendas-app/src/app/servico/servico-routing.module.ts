@@ -14,6 +14,9 @@ const routes: Routes = [
   },
   {
     path: 'cadastrar', component: FormComponent
+  },
+  {
+    path: 'atualizar/:id', component: FormComponent
   }
 ];
 

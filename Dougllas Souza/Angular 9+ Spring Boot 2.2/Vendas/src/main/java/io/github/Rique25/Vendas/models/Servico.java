@@ -28,8 +28,12 @@ public class Servico {
     @Column(name = "servico")
     private String servico;
 
-    @NotNull
     @NotEmpty
+    @NotNull
+    @Column
+    private String descricao;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;

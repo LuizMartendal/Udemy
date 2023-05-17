@@ -1,6 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, Output } from '@angular/core';
 import { ServicoService } from '../service/servico.service';
+import { Servico } from '../models/Servico';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/shared/material/dialog/dialog.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-servico',
@@ -19,9 +23,8 @@ export class ListServicoComponent implements OnInit {
   @Output() msgComponent: string = 'Aqui estão os serviços cadastrados';
   @Output() component: string = 'Serviço';
 
-  columnsToDisplay = ['Cliente', 'Valor (R$)', 'Data de cadastro'];
-  columns = ['cliente', 'valor', 'dataCadastro', 'servico']
-  columnsToDisplayWithExpand = [...this.columns, 'servico'];
+  columns = ['servico', 'valor', 'dataCadastro']
+  columnsToDisplayWithExpand = [...this.columns, 'descricao'];
   expandedElement: ServicoInterface | undefined;
 
   servicos = [];
@@ -29,7 +32,8 @@ export class ListServicoComponent implements OnInit {
   isLoading: boolean = false;
 
   constructor(
-    private servicoService: ServicoService
+    private servicoService: ServicoService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -37,10 +41,33 @@ export class ListServicoComponent implements OnInit {
   }
 
   list() {
-    /*return this.servicoService.list(null)
+    return this.servicoService.list({page: String, size: String, direction: String})
       .subscribe({
         next: (res: any) => this.servicos = res.content
-      })*/
+      })
+  }
+
+  del(id: string) {
+    return this.servicoService.delete(id)
+      .subscribe({
+        next: () => {
+          this.dialog.open(DialogComponent, {
+            data: {
+              title: 'Sucesso',
+              msg: 'Serviço deletado com sucesso!'
+            }
+          });
+          this.list();
+        },
+        error: (err) => {
+          this.dialog.open(DialogComponent, {
+            data: {
+              title: 'Erro',
+              msg: err.error.errors
+            }
+          });
+        }
+      });
   }
 }
 

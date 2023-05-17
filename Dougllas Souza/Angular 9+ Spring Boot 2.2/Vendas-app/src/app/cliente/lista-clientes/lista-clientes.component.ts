@@ -55,8 +55,23 @@ export class ListaClientesComponent implements OnInit {
 
   del(id: string) {
     this.clienteService.delete(id)
-      .subscribe();
-    this.list();
-    location.reload();
+    .subscribe({
+      next: (res: any) => {;
+        this.isLoading = false;
+        this.list();
+        this.dialog.open(DialogComponent, {
+          data: {
+            title: 'Sucesso!',
+            msg: 'Cliente deletado com sucesso'
+          }
+        })
+      },
+      error: (err) => this.dialog.open(DialogComponent, {
+        data: {
+          title: 'Erro!',
+          msg: err.error
+        }
+      })
+    });
   }
 }

@@ -5,6 +5,7 @@ import { Servico } from '../models/Servico';
 import { ServicoService } from '../service/servico.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/material/dialog/dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -18,31 +19,61 @@ export class FormComponent implements OnInit {
 
   formServico: FormGroup = this.formBuilder.group({
     servico: ['', [Validators.required]],
+    descricao: ['', [Validators.required]],
     valor: ['', [Validators.required]],
     cliente: [null, [Validators.required]]
   });
 
   clientes: any[] = [];
+  servico: any;
 
   constructor(
     private clienteService: ClienteService,
     private formBuilder: FormBuilder,
     private servicoService: ServicoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.clienteService.list(null)
+    let id: any;
+    this.activatedRoute.params
+      .subscribe( (res: any) => id = res.id);
+    if (id) {
+      this.servicoService.getById(id)
+      .subscribe({
+        next: (res) => {
+          this.servico = res;
+          this.setValues();
+        },
+        error: (err) => {
+          this.dialog.open(DialogComponent, {
+            data: {
+              title: 'Erro',
+              msg: err.error.errors
+            }
+          })
+        }
+      });
+      this.msgComponent = 'Aqui você pode editar um serviço';
+    }
+
+    this.clienteService.list({page: String, size: String, direction: String})
       .subscribe( (res: any) => {
         this.clientes = res.content;
       });
   }
 
   onSumit() {
-    let servico = new Servico(this.formServico.get('servico')?.value,
-                              this.formServico.get('valor')?.value,
-                              this.formServico.get('cliente')?.value);
-    return this.servicoService.create(servico)
+    let servico: any = {
+                          servico: this.formServico.get('servico')?.value,
+                          descricao: this.formServico.get('descricao')?.value,
+                          cliente: this.formServico.get('cliente')?.value,
+                          valor: this.formServico.get('valor')?.value
+                        };
+
+    this.servicoService.create(servico)
       .subscribe({
         next: () => {
           this.dialog.open(DialogComponent, {
@@ -50,7 +81,8 @@ export class FormComponent implements OnInit {
               title: 'Sucesso',
               msg: 'Serviço criado com sucesso!'
             }
-          })
+          });
+          this.router.navigate(['/servicos'])
         },
         error: (err) => this.dialog.open(DialogComponent, {
           data: {
@@ -59,6 +91,13 @@ export class FormComponent implements OnInit {
           }
         })
       });
+  }
+
+  setValues() {
+    this.formServico.get('servico')?.setValue(this.servico?.servico);
+    this.formServico.get('descricao')?.setValue(this.servico?.descricao);
+    this.formServico.get('cliente')?.setValue(this.servico?.cliente.nome);
+    this.formServico.get('valor')?.setValue(this.servico?.valor);
   }
 
 }

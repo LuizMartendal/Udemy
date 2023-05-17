@@ -15,18 +15,18 @@ export class ServicoService {
   ) { }
 
   list(params: any) {
-    return this.http.get(`${this.URL}/servico`, params);
+    return this.http.get<Servico[]>(`${this.URL}/servico`, params);
   }
 
   getById(id: string) {
-    return this.http.get(`${this.URL}/servico/${id}`);
+    return this.http.get<Servico>(`${this.URL}/servico/${id}`);
   }
 
-  create(servico: Servico) {
+  create(servico: any) {
     return this.http.post(`${this.URL}/servico`, servico);
   }
 
-  update(servico: Servico, id: string) {
+  update(servico: any, id: string) {
     return this.http.put(`${this.URL}/servico/${id}`, servico);
   }
 
