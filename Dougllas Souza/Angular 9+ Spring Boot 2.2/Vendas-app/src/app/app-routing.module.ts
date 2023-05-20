@@ -1,21 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '', redirectTo: 'home', pathMatch: 'full'
   },
   {
-    path: 'home', component: HomeComponent
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'home', component: HomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'cliente',
-    loadChildren: () => import('../app/cliente/cliente.module').then(c => c.ClienteModule)
+    loadChildren: () => import('./pages/cliente/cliente.module').then(c => c.ClienteModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'servico',
-    loadChildren: () => import('./servico/servico.module').then(m => m.ServicoModule)
+    loadChildren: () => import('./pages/servico/servico.module').then(m => m.ServicoModule),
+    canActivate: [AuthGuard]
   }
 ];
 

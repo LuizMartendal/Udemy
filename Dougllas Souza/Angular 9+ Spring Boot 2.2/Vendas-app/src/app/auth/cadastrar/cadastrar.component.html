@@ -1,0 +1,73 @@
+<button routerLink="/auth" class="back" mat-icon-button>
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<div class="box">
+  <mat-stepper linear #stepper>
+    <mat-step [stepControl]="firstFormUsuario">
+      <form [formGroup]="firstFormUsuario">
+        <ng-template matStepLabel>Dados para login</ng-template>
+        <div class="inputs">
+          <mat-form-field>
+            <mat-label>Usuário</mat-label>
+            <input matInput formControlName="usuario" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Senha</mat-label>
+            <input type="password" matInput formControlName="senha" required>
+          </mat-form-field>
+        </div>
+        <div class="step-buttons">
+          <button mat-raised-button matStepperNext>Próximo</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormUsuario">
+      <form [formGroup]="secondFormUsuario">
+        <ng-template matStepLabel>Dados sobre o usuário</ng-template>
+        <div class="inputs-second">
+          <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" placeholder="Nome completo" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="email@email.com" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Sexo</mat-label>
+            <mat-select formControlName="sexo">
+              <mat-option *ngFor="let genero of generos" [value]="genero">
+                {{ genero }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Data de nascimento</mat-label>
+            <input matInput [matDatepicker]="datepicker" formControlName="dataNascimento">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancelar</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="step-buttons">
+          <button mat-button matStepperPrevious>Voltar</button>
+          <button mat-button matStepperNext>Cadastrar</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Concluído</ng-template>
+      <div class="done">
+        <h1>Bem vindo!</h1>
+        <div>
+          <button mat-button routerLink="['']">Voltar</button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>

@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +64,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                     authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(
-							"/auth/signin",
+							"/auth/sign",
 							"/auth/refresh/**",
                     		"/swagger-ui/**",
                     		"/v3/api-docs/**"

@@ -13,6 +13,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatInputModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatStepperModule
   ]
 })
 export class MaterialModule { }

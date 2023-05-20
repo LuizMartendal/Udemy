@@ -10,12 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/cliente")
-@CrossOrigin("*")
 public class ClienteController {
 
     @Autowired
