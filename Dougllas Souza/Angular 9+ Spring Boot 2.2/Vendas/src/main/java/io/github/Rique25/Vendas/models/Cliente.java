@@ -3,13 +3,15 @@ package io.github.Rique25.Vendas.models;
 import io.github.Rique25.Vendas.enums.Sexo;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -21,7 +23,7 @@ public class Cliente {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @JdbcTypeCode(Types.CHAR)
     @Column(name = "id", columnDefinition = "char(36)")
     private UUID id;
 

@@ -6,14 +6,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
-import { HomeComponent } from './home/home.component';
-import { ClienteModule } from './cliente/cliente.module';
-import { ServicoModule } from './servico/servico.module';
+import { HomeComponent } from './pages/home/home.component';
+import { ClienteModule } from './pages/cliente/cliente.module';
+import { ServicoModule } from './pages/servico/servico.module';
+import { AuthComponent } from './auth/auth.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CadastrarComponent } from './auth/cadastrar/cadastrar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    AuthComponent,
+    CadastrarComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,8 @@ import { ServicoModule } from './servico/servico.module';
     SharedModule,
     ClienteModule,
     HttpClientModule,
-    ServicoModule
+    ServicoModule,
+    ReactiveFormsModule
   ],
   exports: [
     SharedModule

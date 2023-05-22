@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="usuario">
   <span routerLink="home">Vendas App</span>
   <button (click)="drawer.toggle()" mat-icon-button>
     <mat-icon>density_small</mat-icon>
@@ -18,6 +18,10 @@
     <button routerLink="servico" (click)="drawer.toggle()">
       <mat-icon class="mat-18">build_circle</mat-icon>
       <span>Serviço</span>
+    </button>
+    <button routerLink="auth" (click)="drawer.toggle()" (click)="logout()">
+      <mat-icon class="mat-18">user</mat-icon>
+      <span>Logout</span>
     </button>
   </mat-drawer>
   <mat-drawer-content>

@@ -17,3 +17,15 @@ CREATE TABLE if NOT EXISTS servico (
 	PRIMARY KEY (id),
 	FOREIGN KEY (id_cliente) REFERENCES cliente (id)
 );
+
+CREATE TABLE IF NOT EXISTS usuario (
+    id CHAR(36) NOT NULL,
+    usuario VARCHAR(100), NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    sexo INT NOT NULL,
+    data_nascimento DATE NOT NULL,
+    perfil VARCHAR(15) NOT NULL,
+    PRIMARY KEY (id)
+);
