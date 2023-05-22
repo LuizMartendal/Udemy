@@ -26,7 +26,8 @@ public class ClienteController {
                                       @RequestParam(name = "size", defaultValue = "10") Integer size,
                                       @RequestParam(name = "direction", defaultValue = "asc") String direction)
     {
-        Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ?
+                Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "nome"));
         return this.service.getClientes(pageable);
     }
