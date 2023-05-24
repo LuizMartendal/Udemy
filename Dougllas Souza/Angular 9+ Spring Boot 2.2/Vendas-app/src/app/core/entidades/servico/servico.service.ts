@@ -8,18 +8,18 @@ import { environment } from 'src/environments/environment';
 })
 export class ServicoService {
 
-  private URL: string = environment.URL;
+  private URL: string = environment.URL + '/api';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  list(params: any) {
-    return this.http.get<Servico[]>(`${this.URL}/servico`, params);
+  list(params: any, criadoPor: any) {
+    return this.http.get<Servico[]>(`${this.URL}/servico/${criadoPor}`, params);
   }
 
-  getById(id: string) {
-    return this.http.get<Servico>(`${this.URL}/servico/${id}`);
+  getById(id: string, criadoPor: any) {
+    return this.http.get<Servico>(`${this.URL}/servico/${id}/${criadoPor}`);
   }
 
   create(servico: any) {

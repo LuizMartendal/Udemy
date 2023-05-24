@@ -13,11 +13,11 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Senha</mat-label>
-            <input type="password" matInput formControlName="senha" required>
+            <input type="password" matInput formControlName="senha" minlength="8" required>
           </mat-form-field>
         </div>
         <div class="step-buttons">
-          <button mat-raised-button matStepperNext>Próximo</button>
+          <button mat-raised-button matStepperNext [disabled]="firstFormUsuario.invalid">Próximo</button>
         </div>
       </form>
     </mat-step>
@@ -49,14 +49,14 @@
             <mat-datepicker #datepicker>
               <mat-datepicker-actions>
                 <button mat-button matDatepickerCancel>Cancelar</button>
-                <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
+                <button mat-raised-button color="primary" matDatepickerApply [disabled]="secondFormUsuario.invalid">Aplicar</button>
               </mat-datepicker-actions>
             </mat-datepicker>
           </mat-form-field>
         </div>
         <div class="step-buttons">
           <button mat-button matStepperPrevious>Voltar</button>
-          <button mat-button matStepperNext>Cadastrar</button>
+          <button mat-button matStepperNext (click)="onSubmit()">Cadastrar</button>
         </div>
       </form>
     </mat-step>
@@ -65,7 +65,7 @@
       <div class="done">
         <h1>Bem vindo!</h1>
         <div>
-          <button mat-button routerLink="['']">Voltar</button>
+          <button mat-button routerLink="/home">Continuar</button>
         </div>
       </div>
     </mat-step>

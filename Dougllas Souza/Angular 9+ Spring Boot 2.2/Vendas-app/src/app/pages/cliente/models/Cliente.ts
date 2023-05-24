@@ -1,14 +1,16 @@
 export class Cliente {
 
-  private id : string = '';
+  private id? : string = '';
   private nome: string;
   private cpf: string;
-  private sexo: number;
+  private sexo: string;
+  private criadoPor: string;
 
-  constructor(nome: string, cpf: string, sexo: number) {
+  constructor(nome: string, cpf: string, sexo: string, criadoPor: string) {
     this.nome = nome;
     this.cpf = cpf;
     this.sexo = sexo;
+    this.criadoPor = criadoPor;
   }
 
   getId() {
@@ -39,7 +41,15 @@ export class Cliente {
     return this.sexo;
   }
 
-  setSexo(sexo: number) {
+  setSexo(sexo: string) {
     this.sexo = sexo;
+  }
+
+  getCriadoPor() {
+    return this.criadoPor;
+  }
+
+  setCriadoPor(usuario: string) {
+    this.criadoPor = usuario;
   }
 }

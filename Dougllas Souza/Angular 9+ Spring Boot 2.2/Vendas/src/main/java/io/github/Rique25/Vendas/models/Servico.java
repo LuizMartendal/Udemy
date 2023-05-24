@@ -46,6 +46,10 @@ public class Servico {
     @Column
     private LocalDate dataCadastro;
 
+    @ManyToOne
+    @JoinColumn(name = "criado_por")
+    private Usuario criadoPor;
+
     @PrePersist
     public void prePersist() {
         this.setDataCadastro(LocalDate.now());

@@ -49,6 +49,7 @@ public class Usuario implements UserDetails {
     private String email;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
     @Column(nullable = false, name = "data_nascimento")

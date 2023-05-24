@@ -40,10 +40,15 @@ public class Cliente {
 
     @NotNull
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro;
+
+    @ManyToOne
+    @JoinColumn(name = "criado_por")
+    private Usuario criadoPor;
 
     @PrePersist
     public void prePersist() {

@@ -14,26 +14,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/servico")
+@RequestMapping("/api/servico")
 public class ServicoController {
 
     @Autowired
     private ServicoService service;
 
-    @GetMapping
+    @GetMapping("/{criadoPor}")
     public Page<Servico> getServicos(@RequestParam(name = "page", defaultValue = "0") Integer page,
                                      @RequestParam(name = "size", defaultValue = "10") Integer size,
-                                     @RequestParam(name = "direction", defaultValue = "asc") String direction)
+                                     @RequestParam(name = "direction", defaultValue = "asc") String direction,
+                                     @PathVariable String criadoPor)
     {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "servico"));
-        return this.service.getServicos(pageable);
+        return this.service.getServicos(pageable, criadoPor);
     }
 
-    @GetMapping("/{id}")
-    public Servico getServico(@PathVariable UUID id) {
+    @GetMapping("/{id}/{criadoPor}")
+    public Servico getServico(@PathVariable UUID id, @PathVariable String criadoPor) {
         if (id != null) {
-            return this.service.getServico(id);
+            return this.service.getServico(id, criadoPor);
         }
         throw new BadRequestException("É necessário fornecer um id para encontrar um serviço.");
     }

@@ -1,11 +1,13 @@
 package io.github.Rique25.Vendas.configs;
 
+import io.github.Rique25.Vendas.exceptions.CustomExceptionHandler;
 import io.github.Rique25.Vendas.jwt.JwtTokenConfigurer;
 import io.github.Rique25.Vendas.jwt.JwtTokenProvider;
 import io.github.Rique25.Vendas.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -19,8 +21,6 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @EnableWebSecurity
 @Configuration
@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers(
+                                        "/**",
                                         "/auth/**",
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**"
@@ -47,6 +48,8 @@ public class SecurityConfig {
                                 .requestMatchers("/users").denyAll()
                 )
                 .cors()
+                .and()
+                .exceptionHandling()
                 .and()
                 .apply(tokenConfigurer)
                 .and()

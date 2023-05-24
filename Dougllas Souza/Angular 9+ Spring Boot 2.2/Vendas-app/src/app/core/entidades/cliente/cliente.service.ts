@@ -9,26 +9,26 @@ import { Observable } from 'rxjs';
 })
 export class ClienteService {
 
-  URL: string = environment.URL;
+  private URL: string = environment.URL + '/api';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  salvar(cliente: Cliente): Observable<Cliente> {
+  salvar(cliente: any): Observable<Cliente> {
     return this.http.post<Cliente>(`${this.URL}/cliente`, cliente);
   }
 
-  update(cliente: Cliente): Observable<Cliente> {
+  update(cliente: any): Observable<Cliente> {
     return this.http.put<Cliente>(`${this.URL}/cliente/${cliente.getId()}`, cliente);
   }
 
-  list(params: any) {
-    return this.http.get(`${this.URL}/cliente`);
+  list(params: any, criadoPor: any) {
+    return this.http.get(`${this.URL}/cliente/${criadoPor}`);
   }
 
-  getById(id: string) {
-    return this.http.get(`${this.URL}/cliente/${id}`);
+  getById(id: string, criadoPor: any) {
+    return this.http.get(`${this.URL}/cliente/${id}/${criadoPor}`);
   }
 
   delete(id: string) {

@@ -6,13 +6,14 @@ import { ClienteService } from '../../../core/entidades/cliente/cliente.service'
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/material/dialog/dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UsuarioService } from 'src/app/core/entidades/usuario/usuario.service';
 
 @Component({
   selector: 'app-cadastro',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit{
+export class FormComponent implements OnInit {
 
   @Output() msgComponent: string = 'Aqui você pode cadastrar um cliente';
   @Output() component: string = 'Cliente';
@@ -20,7 +21,7 @@ export class FormComponent implements OnInit{
   public formCliente: FormGroup = this.formBuilder.group({
     nome: ['', [Validators.required, Validators.nullValidator]],
     cpf: ['', [Validators.required, Validators.maxLength(11), Validators.minLength(11), Validators.nullValidator]],
-    sexo: [0, [Validators.required]]
+    sexo: ['', [Validators.required]]
   });
 
   cliente: any;
@@ -30,7 +31,8 @@ export class FormComponent implements OnInit{
     private clienteService: ClienteService,
     private dialog: MatDialog,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private usuarioService: UsuarioService
   ) {}
 
   ngOnInit(): void {
@@ -39,18 +41,9 @@ export class FormComponent implements OnInit{
       .subscribe( (res: any) => id = res.id);
 
     if (id) {
-      this.clienteService.getById(id)
+      this.clienteService.getById(id, localStorage.getItem('user_id'))
         .subscribe( res => {
           this.cliente = res;
-
-          if (this.cliente?.sexo === 'MASCULINO') {
-            this.cliente.sexo = 0;
-          } else if (this.cliente?.sexo === 'FEMININO') {
-            this.cliente.sexo = 1;
-          } else {
-            this.cliente.sexo = 2;
-          }
-
           this.setValues();
         });
 
@@ -64,10 +57,23 @@ export class FormComponent implements OnInit{
     this.formCliente.get('sexo')?.setValue(this.cliente?.sexo);
   }
 
+  numberToString() {
+    if (this.formCliente.value.sexo == 0) {
+      return 'MASCULINO'
+    } else if (this.formCliente.value.sexo == 1) {
+      return 'FEMININO'
+    }
+    return 'OUTRO'
+  }
+
   onSubmit() {
-    let cliente = new Cliente(this.formCliente.value.nome,
-                              this.formCliente.value.cpf,
-                              this.formCliente.value.sexo);
+    const usuario: any = localStorage.getItem('user_id');
+    let cliente = {nome: this.formCliente.value.nome,
+                   cpf:  this.formCliente.value.cpf,
+                   sexo: this.numberToString(),
+                   criadoPor: usuario};
+                              console.log(cliente);
+
     if (this.cliente) {
       this.update(cliente);
     } else {
@@ -78,7 +84,7 @@ export class FormComponent implements OnInit{
 
   create(cliente: any) {
     this.formCliente.reset();
-    this.formCliente.get('sexo')?.setValue(0)
+    this.formCliente.get('sexo')?.setValue('MASCULINO')
     this.clienteService
       .salvar(cliente)
       .subscribe({
@@ -89,7 +95,7 @@ export class FormComponent implements OnInit{
               msg: 'Cliente criado com sucesso!'
             }
           });
-          this.router.navigate(['./clientes'])
+          this.router.navigate(['/cliente'])
         },
         error: (err) => {
           this.dialog.open(DialogComponent, {
@@ -102,7 +108,7 @@ export class FormComponent implements OnInit{
       });
   }
 
-  update(cliente: Cliente) {
+  update(cliente: any) {
     cliente.setId(this.cliente?.id);
     this.clienteService
       .update(cliente)

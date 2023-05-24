@@ -5,6 +5,7 @@ import { ServicoService } from '../../../core/entidades/servico/servico.service'
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/material/dialog/dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UsuarioService } from 'src/app/core/entidades/usuario/usuario.service';
 
 @Component({
   selector: 'app-form',
@@ -40,7 +41,7 @@ export class FormComponent implements OnInit {
     this.activatedRoute.params
       .subscribe( (res: any) => id = res.id);
     if (id) {
-      this.servicoService.getById(id)
+      this.servicoService.getById(id, localStorage.getItem('user_id'))
       .subscribe({
         next: (res) => {
           this.servico = res;
@@ -58,18 +59,19 @@ export class FormComponent implements OnInit {
       this.msgComponent = 'Aqui você pode editar um serviço';
     }
 
-    this.clienteService.list({page: String, size: String, direction: String})
+    this.clienteService.list({page: String, size: String, direction: String}, localStorage.getItem('user_id'))
       .subscribe( (res: any) => {
         this.clientes = res.content;
       });
   }
 
-  onSumit() {
+  onSubmit() {
     let servico: any = {
                           servico: this.formServico.get('servico')?.value,
                           descricao: this.formServico.get('descricao')?.value,
                           cliente: this.formServico.get('cliente')?.value,
-                          valor: this.formServico.get('valor')?.value
+                          valor: this.formServico.get('valor')?.value,
+                          criadoPor: localStorage.getItem('user_id')
                         };
 
     this.servicoService.create(servico)
@@ -81,7 +83,7 @@ export class FormComponent implements OnInit {
               msg: 'Serviço criado com sucesso!'
             }
           });
-          this.router.navigate(['/servicos'])
+          this.router.navigate(['/servico'])
         },
         error: (err) => this.dialog.open(DialogComponent, {
           data: {

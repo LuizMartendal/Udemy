@@ -1,5 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsuarioService } from './core/entidades/usuario/usuario.service';
 
 @Component({
   selector: 'app-root',
@@ -9,20 +10,37 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
 
   usuario: any;
+  id: string = '';
 
   constructor(
-    private router: Router
+    private router: Router,
+    private usuarioService: UsuarioService
   ) {}
 
   ngOnInit(): void {
-    if (localStorage.getItem('USUARIO')) {
-      this.usuario = '1';
-    } else {
-      this.usuario = null;
-    }
+    this.router.events.subscribe((val) => {
+      if (this.usuarioService.isAuthenticated()) {
+        this.usuario = this.usuarioService.usuarioAutenticado();
+        this.id = localStorage.getItem('user_id') || '';
+
+        let cont = document.getElementById('container');
+        if (cont instanceof HTMLElement) {
+          cont.style.height = '92vh';
+        }
+      } else {
+        this.usuario = null;
+
+        let cont = document.getElementById('container');
+        if (cont instanceof HTMLElement) {
+          cont.style.height = '100vh';
+        }
+      }
+    });
   }
 
   logout() {
-    localStorage.removeItem('USUARIO');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('access_token')
+    this.usuario = null;
   }
 }

@@ -11,5 +11,6 @@ public class ServicoDTO {
     private String descricao;
     private String cliente;
     private BigDecimal valor;
+    private String criadoPor;
 
 }

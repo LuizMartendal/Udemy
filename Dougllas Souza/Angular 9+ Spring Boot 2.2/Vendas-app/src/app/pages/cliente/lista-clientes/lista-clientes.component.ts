@@ -38,18 +38,21 @@ export class ListaClientesComponent implements OnInit {
 
   list() {
     this.isLoading = true;
-    return this.clienteService.list({page: String, size: String, direction: String})
+    return this.clienteService.list({page: String, size: String, direction: String}, localStorage.getItem('user_id'))
       .subscribe({
         next: (res: any) => {
           this.clientes = res.content;
           this.isLoading = false;
         },
-        error: (err) => this.dialog.open(DialogComponent, {
-          data: {
-            title: 'Erro!',
-            msg: err.error
-          }
-        })
+        error: (err) => {
+            this.dialog.open(DialogComponent, {
+            data: {
+              title: 'Erro!',
+              msg: err.error
+            }
+          });
+          console.log(err);
+        }
       });
   }
 

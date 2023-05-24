@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/auth")
@@ -55,5 +56,23 @@ public class UsuarioController {
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         return  jwtTokenProvider.createAccessToken(usuario, Arrays.asList(usuario.getPerfil().getPerfil()));
+    }
+
+    @GetMapping("/{id}")
+    public Usuario getById(@PathVariable String id) {
+        UUID uuid = UUID.fromString(id);
+        Usuario u = usuarioRepository.findById(uuid).get();
+        return u;
+    }
+
+    @PutMapping("/{id}")
+    public Usuario update(@RequestBody Usuario usuario, @PathVariable String id) {
+        return usuarioRepository.findById(UUID.fromString(id))
+                .map((user) -> {
+                    String senha = passwordEncoder.encode(usuario.getSenha());
+                    usuario.setSenha(senha);
+                    usuarioRepository.save(usuario);
+                    return usuario;
+                }).orElseThrow(() -> new BadRequestException("Usuário não encontrado"));
     }
 }

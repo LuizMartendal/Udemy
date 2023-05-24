@@ -1,5 +1,6 @@
 package io.github.Rique25.Vendas.jwt;
 
+import io.github.Rique25.Vendas.exceptions.BadRequestException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -31,6 +32,11 @@ public class JwtTokenFilter extends GenericFilterBean {
             }
         }
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        try {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } catch (ServletException e) {
+            Throwable cause = e.getRootCause();
+            throw new BadRequestException(cause.getMessage());
+        }
     }
 }

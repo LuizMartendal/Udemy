@@ -1,5 +1,6 @@
 package io.github.Rique25.Vendas.controllers;
 
+import io.github.Rique25.Vendas.dtos.ClienteDTO;
 import io.github.Rique25.Vendas.exceptions.BadRequestException;
 import io.github.Rique25.Vendas.models.Cliente;
 import io.github.Rique25.Vendas.services.ClienteService;
@@ -14,36 +15,35 @@ import jakarta.validation.Valid;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/api/cliente")
 public class ClienteController {
 
     @Autowired
     private ClienteService service;
 
-    @GetMapping
+    @GetMapping("/{criadoPor}")
     public Page<Cliente> getClientes(@RequestParam(name = "page", defaultValue = "0") Integer page,
                                       @RequestParam(name = "size", defaultValue = "10") Integer size,
-                                      @RequestParam(name = "direction", defaultValue = "asc") String direction)
+                                      @RequestParam(name = "direction", defaultValue = "asc") String direction,
+                                     @PathVariable String criadoPor)
     {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ?
                 Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "nome"));
-        return this.service.getClientes(pageable);
+        return this.service.getClientes(pageable, criadoPor);
     }
 
-    @GetMapping("/{id}")
-    public Cliente getCliente(@PathVariable UUID id) {
+    @GetMapping("/{id}/{criadoPor}")
+    public Cliente getCliente(@PathVariable String id, @PathVariable String criadoPor) {
         if (id != null) {
-            return this.service.getCliente(id);
+            UUID clienteId = UUID.fromString(id);
+            return this.service.getCliente(clienteId, criadoPor);
         }
         throw new BadRequestException("É necessário fornecer um id para encontrar um cliente.");
     }
 
     @PostMapping
-    public Cliente create(@Valid @RequestBody Cliente cliente) {
-        if (cliente.getId() != null) {
-            throw new BadRequestException("Não pode ser fornecido o id para criar um cliente.");
-        }
+    public Cliente create(@RequestBody ClienteDTO cliente) {
         return this.service.create(cliente);
     }
 
