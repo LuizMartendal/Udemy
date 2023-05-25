@@ -12,7 +12,7 @@
         <div class="input-box">
           <mat-form-field>
             <mat-label>Usuário</mat-label>
-            <input matInput disabled="true" [value]="usuario?.usuario">
+            <input matInput disabled="true" [value]="usuario.getUsuario()">
           </mat-form-field>
 
           <mat-form-field>
@@ -22,17 +22,17 @@
 
           <mat-form-field>
             <mat-label>Nome</mat-label>
-            <input type="text" matInput formControlName="nome" [value]="usuario?.nome">
+            <input type="text" matInput formControlName="nome" [value]="usuario.getNome()">
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input type="text" matInput disabled="true" [value]="usuario?.email">
+            <input type="text" matInput disabled="true" [value]="usuario.getEmail()">
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Sexo</mat-label>
-            <mat-select formControlName="sexo" [value]="usuario?.sexo">
+            <mat-select formControlName="sexo" [value]="usuario.getSexo()">
               <mat-option *ngFor="let s of sexo" [value]="s">
                 {{ s }}
               </mat-option>
@@ -41,8 +41,8 @@
 
           <mat-form-field>
             <mat-label>Data de nascimento</mat-label>
-            <input matInput [matDatepicker]="datepicker" formControlName="dataNascimento" [value]="usuario?.dataNascimento">
-            <mat-hint>MM/DD/YYYY</mat-hint>
+            <input matInput [matDatepicker]="datepicker" formControlName="dataNascimento">
+            <mat-hint>MM/dd/aaaa</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
             <mat-datepicker #datepicker>
               <mat-datepicker-actions>

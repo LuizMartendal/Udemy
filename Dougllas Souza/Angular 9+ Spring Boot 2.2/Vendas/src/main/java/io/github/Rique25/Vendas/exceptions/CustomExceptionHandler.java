@@ -33,6 +33,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiErrorMessage, apiErrorMessage.getStatus());
     }
 
+    @ExceptionHandler(value = {HttpClientErrorException.BadRequest.class})
+    public ResponseEntity<Object> badRequesrException(HttpClientErrorException.BadRequest ex) {
+        List<String> errors = new ArrayList<>();
+        errors.add(ex.getMessage());
+        ApiErrorMessage apiErrorMessage = new ApiErrorMessage(HttpStatus.BAD_REQUEST, errors);
+
+        return new ResponseEntity<>(apiErrorMessage, apiErrorMessage.getStatus());
+    }
+
     @ExceptionHandler(value = {Exception403.class})
     public ResponseEntity<Object> exception403(Exception403 ex) {
         List<String> errors = new ArrayList<>();

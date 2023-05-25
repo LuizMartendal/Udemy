@@ -30,11 +30,15 @@ public class SecurityConfig {
     @Autowired
     private JwtTokenConfigurer tokenConfigurer;
 
+    private static final String[] PUBLIC_MATCHER_GET = { "/*.js", "/*.js.map", "/*.html", "/", "/*.css", "/*.json",
+            "/*.woff2", "/*.woff", //
+            "/*.png", "/assets/**", "/svg/**", "/actuator/**" };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .httpBasic().disable()
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf().disable()
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
@@ -43,17 +47,24 @@ public class SecurityConfig {
                                         "/**",
                                         "/auth/**",
                                         "/swagger-ui/**",
-                                        "/v3/api-docs/**"
+                                        "/v3/api-docs/**",
+                                        "/*.js", "/*.js.map", "/*.html", "/", "/*.css", "/*.json",
+                                        "/*.woff2", "/*.woff", //
+                                        "/*.png", "/assets/**", "/svg/**", "/actuator/**"
                                 ).permitAll()
                                 .requestMatchers("/api/**").authenticated()
                                 .requestMatchers("/users").denyAll()
                 )
                 .cors()
                 .and()
+                .headers().frameOptions().disable()
+                .and()
                 .exceptionHandling()
                 .accessDeniedHandler(new Exception403())
                 .and()
                 .apply(tokenConfigurer)
+                .and()
+                .headers().frameOptions().disable()
                 .and()
                 .build();
     }

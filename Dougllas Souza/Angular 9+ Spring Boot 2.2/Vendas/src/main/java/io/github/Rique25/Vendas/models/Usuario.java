@@ -13,10 +13,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Types;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 @Data
 @Entity
@@ -30,21 +29,21 @@ public class Usuario implements UserDetails {
     @Column(name = "id", columnDefinition = "char(36)")
     private UUID id;
 
-    @NotEmpty
+    @NotEmpty(message = "Usuário é um campo obrigatório")
     @Column(nullable = false, unique = true)
     private String usuario;
 
-    @NotEmpty
+    @NotEmpty(message = "Senha é um campo obrigatório")
     @Length(min = 8, message = "A sua senha deve conter pelo menos 8 caracteres")
     @Column(nullable = false)
     private String senha;
 
-    @NotEmpty
+    @NotEmpty(message = "Nome é um campo obrigatório")
     @Column(nullable = false)
     private String nome;
 
-    @NotEmpty
-    @Email
+    @NotEmpty(message = "Email é um campo obrigatório")
+    @Email(message = "Email não formatado!")
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -53,7 +52,7 @@ public class Usuario implements UserDetails {
     private Sexo sexo;
 
     @Column(nullable = false, name = "data_nascimento")
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

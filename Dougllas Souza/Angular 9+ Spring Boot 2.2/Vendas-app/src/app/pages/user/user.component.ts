@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from 'src/app/core/entidades/usuario/usuario.service';
 import { DialogComponent } from 'src/app/shared/material/dialog/dialog.component';
+import { Usuario } from './model/Usuario';
 
 @Component({
   selector: 'app-user',
@@ -18,13 +19,15 @@ export class UserComponent implements OnInit {
   sexo: string[] = ['MASCULINO', 'FEMININO', 'OUTRO'];
 
   formUsuario: FormGroup = this.formBuilder.group({
-    nome: ['', [Validators.required]],
-    senha: ['', [Validators.required]],
+    nome: [''],
+    senha: ['', Validators.required],
     dataNascimento: ['', [Validators.required]],
-    sexo: ['', Validators.required]
+    sexo: ['']
   });
 
-  usuario: any;
+  usuario: Usuario = new Usuario();
+
+  private id: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,29 +37,30 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let id: any;
     this.activatedRoute
       .params
-      .subscribe((res: any) => id = res.id
+      .subscribe((res: any) => this.id = res.id
     );
 
-    this.usuarioService.getById(id)
+    this.usuarioService.getById(this.id)
       .subscribe((res: any) => {
-        console.log(res);
-        this.usuario = res;
+        this.usuario?.setUsuario(res?.usuario);
+        this.usuario?.setSenha(res?.senha);
+        this.usuario?.setNome(res?.nome);
+        this.usuario?.setEmail(res?.email);
+        this.usuario?.setDataNascimento(res?.dataNascimento);
+        this.usuario?.setSexo(res?.sexo);
+        this.usuario?.setPerfil(res?.perfil);
     });
   }
 
   onSubmit() {
-    this.usuario.nome = this.formUsuario.get('nome')?.value;
-    this.usuario.senha = this.formUsuario.get('senha')?.value;
-    this.usuario.dataNascimento = this.formUsuario.get('dataNascimento')?.value;
-    this.usuario.sexo = this.formUsuario.get('sexo')?.value;
+    this.usuario?.setSenha(this.formUsuario.get('senha')?.value);
+    this.usuario?.setNome(this.formUsuario.get('nome')?.value);
+    this.usuario?.setDataNascimento(this.formUsuario.get('dataNascimento')?.value);
+    this.usuario?.setSexo(this.formUsuario.get('sexo')?.value);
 
-    console.log(this.usuario);
-
-
-    this.usuarioService.update(this.usuario)
+    this.usuarioService.update(this.usuario, this.id)
       .subscribe({
         next: () => {
           this.dialog.open(DialogComponent, {

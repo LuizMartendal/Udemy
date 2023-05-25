@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Usuario } from 'src/app/pages/user/model/Usuario';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -19,8 +20,8 @@ export class UsuarioService {
     return this.http.post(`${this.URL}/auth/signin`, usuario);
   }
 
-  update(usuario: any) {
-    return this.http.put(`${this.URL}/auth/${usuario.id}`, usuario);
+  update(usuario: Usuario, id: string) {
+    return this.http.put(`${this.URL}/auth/${id}`, usuario);
   }
 
   login(usuario: any) {

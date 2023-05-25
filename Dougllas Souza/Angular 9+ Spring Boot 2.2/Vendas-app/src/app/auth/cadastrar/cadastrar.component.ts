@@ -19,12 +19,12 @@ export class CadastrarComponent {
 
   secondFormUsuario: FormGroup = this.formBuilder.group({
     nome: ['', [Validators.required]],
-    email: [''],
+    email: ['', [Validators.required, Validators.email]],
     sexo: ['', [Validators.required]],
     dataNascimento: ['', [Validators.required]]
   });
 
-  generos: string[] = ['MASCULINO', 'FEMININO', 'OUTRO'];
+  generos: string[] = ['Masculino', 'Feminino', 'Outro'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,9 +36,7 @@ export class CadastrarComponent {
   }
 
   onSubmit() {
-    let date: any = this.secondFormUsuario.get('dataNascimento')?.value;
-
-    date = date.getFullYear() + '-' + (date.getUTCMonth() + 1) + '-' + date.getDate();
+    let dataNascimento: Date = this.secondFormUsuario.get('dataNascimento')?.value;
 
     const user = {
       usuario: this.firstFormUsuario.get('usuario')?.value,
@@ -46,7 +44,7 @@ export class CadastrarComponent {
       nome: this.secondFormUsuario.get('nome')?.value,
       email: this.secondFormUsuario.get('email')?.value,
       sexo: this.secondFormUsuario.get('sexo')?.value,
-      dataNascimento: date,
+      dataNascimento: dataNascimento,
       perfil: 'CLIENTE'
     };
 
@@ -61,7 +59,6 @@ export class CadastrarComponent {
           })
         },
         error: (err: any) => {
-          console.log(err);
           this.dialog.open(DialogComponent, {
             data: {
               title: 'Erro!',

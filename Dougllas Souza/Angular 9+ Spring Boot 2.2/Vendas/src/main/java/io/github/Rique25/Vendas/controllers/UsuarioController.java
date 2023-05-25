@@ -6,20 +6,19 @@ import io.github.Rique25.Vendas.exceptions.BadRequestException;
 import io.github.Rique25.Vendas.jwt.JwtTokenProvider;
 import io.github.Rique25.Vendas.models.Usuario;
 import io.github.Rique25.Vendas.repositories.UsuarioRepository;
-import io.github.Rique25.Vendas.services.UsuarioService;
 import jakarta.validation.Valid;
-import org.apache.el.parser.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.UUID;
 
 @RestController
@@ -61,8 +60,7 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public Usuario getById(@PathVariable String id) {
         UUID uuid = UUID.fromString(id);
-        Usuario u = usuarioRepository.findById(uuid).get();
-        return u;
+        return usuarioRepository.findById(uuid).get();
     }
 
     @PutMapping("/{id}")
@@ -71,6 +69,7 @@ public class UsuarioController {
                 .map((user) -> {
                     String senha = passwordEncoder.encode(usuario.getSenha());
                     usuario.setSenha(senha);
+                    usuario.setId(user.getId());
                     usuarioRepository.save(usuario);
                     return usuario;
                 }).orElseThrow(() -> new BadRequestException("Usuário não encontrado"));
