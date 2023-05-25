@@ -32,7 +32,7 @@ export class HeaderTokenInterceptor implements HttpInterceptor {
           localStorage.clear();
           this.router.navigate(['/']);
         }
-        return throwError(error);
+        return throwError(() => error);
       }),
       map((event: HttpEvent<any>) => event)
     );

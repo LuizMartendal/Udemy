@@ -1,6 +1,7 @@
 package io.github.Rique25.Vendas.configs;
 
 import io.github.Rique25.Vendas.exceptions.CustomExceptionHandler;
+import io.github.Rique25.Vendas.exceptions.Exception403;
 import io.github.Rique25.Vendas.jwt.JwtTokenConfigurer;
 import io.github.Rique25.Vendas.jwt.JwtTokenProvider;
 import io.github.Rique25.Vendas.services.UsuarioService;
@@ -50,6 +51,7 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .exceptionHandling()
+                .accessDeniedHandler(new Exception403())
                 .and()
                 .apply(tokenConfigurer)
                 .and()

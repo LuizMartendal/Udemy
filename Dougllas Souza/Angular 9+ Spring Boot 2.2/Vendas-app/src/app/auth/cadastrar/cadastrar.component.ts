@@ -53,8 +53,12 @@ export class CadastrarComponent {
     this.usuarioService.create(user)
       .subscribe({
         next: (res: any) => {
-          localStorage.setItem("access_token", JSON.stringify(res.token));
-          localStorage.setItem("user_id", res.usuario.id);
+          this.dialog.open(DialogComponent, {
+            data: {
+              title: 'Sucesso!',
+              msg: 'Usuário criado com sucesso!'
+            }
+          })
         },
         error: (err: any) => {
           console.log(err);

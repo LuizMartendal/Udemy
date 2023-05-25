@@ -43,7 +43,7 @@ export class LoginComponent {
           this.dialog.open(DialogComponent, {
             data: {
               title: 'Erro!',
-              msg: err.error
+              msg: err.error.errors
             }
           })
         }

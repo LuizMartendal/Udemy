@@ -50,8 +50,8 @@ public class UsuarioController {
         Usuario usuario = usuarioRepository.getByUsuario(user.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
 
-        if (usuario == null) {
-            throw new BadCredentialsException("Usuário ou senha incorretos!");
+        if (!passwordEncoder.matches(user.getPassword(), usuario.getPassword())) {
+            throw new BadCredentialsException("Senha incorreta!");
         }
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));

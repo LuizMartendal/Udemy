@@ -28,9 +28,18 @@
       -webkit-text-fill-color: black;
     }
 
+    mat-step {
+      width: 100%;
+      height: 100%;
+      form {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     .inputs {
       width: 100%;
-      margin-top: 2%;
+      margin-top: 5%;
 
       display: flex;
       flex-direction: column;
@@ -39,6 +48,7 @@
 
       mat-form-field {
         width: 50%;
+        font-size: 1.2vw;
       }
     }
 
@@ -60,15 +70,16 @@
 
     .step-buttons {
       width: 100%;
+      height: 50%;
       display: flex;
       justify-content: flex-end;
 
-      margin-top: 2%;
+      margin-top: 8vh;
       button {
         background-image: linear-gradient( 135deg, #97ABFF 10%, #123597 100%);
 
-        height: 6vh;
-        width: 8vw;
+        height: 5vh;
+        width: 10vw;
       }
 
       :nth-child(2) {
@@ -107,4 +118,23 @@
   margin: 5vh 0 0 5vw;
 
   background-image: linear-gradient( 94.3deg,  rgb(37, 45, 80) 10.9%, rgba(81,84,115,1) 87.1% );
+}
+
+@media screen and (max-width: 768px) {
+  .box {
+    mat-stepper {
+      width: 80%;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .box {
+    mat-stepper {
+      .step-buttons {
+        margin-top: 4vh;
+      }
+
+    }
+  }
 }

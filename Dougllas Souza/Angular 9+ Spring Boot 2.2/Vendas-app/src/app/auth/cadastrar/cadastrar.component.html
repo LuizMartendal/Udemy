@@ -5,7 +5,6 @@
   <mat-stepper linear #stepper>
     <mat-step [stepControl]="firstFormUsuario">
       <form [formGroup]="firstFormUsuario">
-        <ng-template matStepLabel>Dados para login</ng-template>
         <div class="inputs">
           <mat-form-field>
             <mat-label>Usuário</mat-label>
@@ -23,7 +22,6 @@
     </mat-step>
     <mat-step [stepControl]="secondFormUsuario">
       <form [formGroup]="secondFormUsuario">
-        <ng-template matStepLabel>Dados sobre o usuário</ng-template>
         <div class="inputs-second">
           <mat-form-field>
             <mat-label>Nome</mat-label>
@@ -61,11 +59,10 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Concluído</ng-template>
       <div class="done">
         <h1>Bem vindo!</h1>
         <div>
-          <button mat-button routerLink="/home">Continuar</button>
+          <button mat-button routerLink="/">Continuar</button>
         </div>
       </div>
     </mat-step>

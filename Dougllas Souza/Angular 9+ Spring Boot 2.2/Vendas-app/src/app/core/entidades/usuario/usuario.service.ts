@@ -47,10 +47,14 @@ export class UsuarioService {
   isAuthenticated() {
     const token = this.obterToken();
 
-    if (token) {
-      const expired = this.jwtHelper.isTokenExpired(token);
-      return !expired;
+    if (token === "undefined") {
+      return false;
     }
-    return false;
+
+    if (token == null) {
+      return false;
+    }
+    const expired = this.jwtHelper.isTokenExpired(token);
+    return !expired;
   }
 }

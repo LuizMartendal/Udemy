@@ -27,7 +27,7 @@ public class UsuarioService implements UserDetailsService {
         if (user != null) {
             return user;
         }
-        throw new UsernameNotFoundException("Usu√°rio n√£o cadastrado");
+        throw new UsernameNotFoundException("Usu·rio n„o encontrado!");
     }
 
 }

@@ -22,6 +22,11 @@
 
     h1 {
       font-size: 6vh;
+      font-weight: 900;
+      background-image: linear-gradient( 135deg, #97ABFF 10%, #123597 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     span {
@@ -66,12 +71,29 @@
     .input-box {
       font-size: 2vh;
 
-      :first-child {
-        margin-bottom: 2vh;
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+
+      span {
+        -webkit-text-fill-color: red;
+        font-weight: 200;
+        font-size: 1.5vw;
+        margin-bottom: 1vh;
       }
 
       mat-form-field {
         width: 100%;
+        height: 10vh;
+
+        mat-label {
+          font-size: 2.5;
+        }
+
+        input {
+          height: 100%;
+          font-size: 2.5vh;
+        }
       }
     }
 
@@ -83,11 +105,13 @@
       align-items: center;
       justify-content: center;
 
+      width: 50%;
+
       button {
         font-size: 2.5vh;
         color: white;
         background-image: linear-gradient( 135deg, #97ABFF 10%, #123597 100%);
-        width: 10vw;
+        width: 100%;
         height: 8vh;
       }
     }
