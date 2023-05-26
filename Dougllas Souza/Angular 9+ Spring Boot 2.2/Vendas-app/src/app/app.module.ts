@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CadastrarComponent } from './auth/cadastrar/cadastrar.component';
 import { HeaderTokenInterceptor } from './core/header-token.interceptor';
 import { UserComponent } from './pages/user/user.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,9 @@ import { UserComponent } from './pages/user/user.component';
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderTokenInterceptor,
       multi: true
+    },
+    {
+      provide: LocationStrategy , useClass: HashLocationStrategy
     }
   ],
   bootstrap: [AppComponent]
