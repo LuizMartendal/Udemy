@@ -47,7 +47,7 @@ public class UsuarioController {
     @PostMapping("/login")
     public TokenDTO login(@RequestBody AuthenticationDTO user) {
         Usuario usuario = usuarioRepository.getByUsuario(user.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+                .orElseThrow(() -> new UsernameNotFoundException("Usu?rio n?o encontrado!"));
 
         if (!passwordEncoder.matches(user.getPassword(), usuario.getPassword())) {
             throw new BadCredentialsException("Senha incorreta!");
@@ -72,6 +72,6 @@ public class UsuarioController {
                     usuario.setId(user.getId());
                     usuarioRepository.save(usuario);
                     return usuario;
-                }).orElseThrow(() -> new BadRequestException("Usuário não encontrado"));
+                }).orElseThrow(() -> new BadRequestException("Usu?rio n?o encontrado"));
     }
 }
