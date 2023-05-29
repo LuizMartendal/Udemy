@@ -5,6 +5,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './modules/home/home.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,11 @@ import { HomeModule } from './modules/home/home.module';
     HomeModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LocationStrategy,  useClass: HashLocationStrategy
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
