@@ -1,5 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
-@import './dist/scss/variables.scss';
+$primary-color: #AF7EEB;
+$secondary-color: #939CDB;
+$tertiary-color: #FFFFFF;
+
+$primary-background-color: #E3E9FF;
+$secondary-background-color: $tertiary-color;
+$tertiary-background-color: $primary-color;
+
+$primary-text-color: $secondary-color;
+$secondary-text-color: $tertiary-color;
+
+$danger-color: #FF002E;
 
 * {
   margin: 0px;

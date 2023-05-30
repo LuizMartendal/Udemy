@@ -22,17 +22,19 @@ export class TodoListComponent implements DoCheck {
       task: event,
       checked: false
     });
+    this.setListToLocalStorage();
   }
 
   deleteItemTaskList(event: number) {
     this.taskList.splice(event, 1);
+    this.setListToLocalStorage();
   }
 
   deleteAllTasks() {
     const confirm = window.confirm("Você realmente deseja deletar tudo?");
 
     if (confirm) {
-      this.taskList = [];
+      localStorage.clear();
     }
   }
 

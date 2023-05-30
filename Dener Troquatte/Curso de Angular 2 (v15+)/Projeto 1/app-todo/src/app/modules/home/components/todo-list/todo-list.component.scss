@@ -1,8 +1,8 @@
-@import '../../../../../dist/scss/variables.scss';
+@import '../../../../../styles.scss';
 
 ul {
   list-style: none;
-  padding: 3vw;
+  padding: 1vw;
 
   li {
     display: flex;
@@ -13,14 +13,14 @@ ul {
 
     input {
       &[type="checkbox"] {
-        width: 5%;
+        width: 2vw;
       }
       &[type="text"] {
         width: 80%;
         padding: 5px 10px;
         border: none;
 
-        font-size: 16px;
+        font-size: 2vw;
         color: $primary-text-color;
         &.checked {
           text-decoration: line-through;
@@ -32,14 +32,14 @@ ul {
 
 section {
   width: 100%;
-  min-height: 250px;
+  min-height: 45vh;
 
   background-color: $secondary-background-color;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
-  margin-top: 20px;
+  margin-top: 3vh;
 
   &.loading {
-    background-image: url("../../../../../assets/icons/download.jpg");
+    background-image: url("../../../../../assets/download.jpg");
     background-repeat: no-repeat;
     background-position: center 30px;
   }
