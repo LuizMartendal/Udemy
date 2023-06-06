@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <span routerLink="" style="cursor: pointer;">Agenda App</span>
+  <div class="router-buttons">
+    <button mat-button active routerLink="list" routerLinkActive="active-route">
+      Agenda
+      <mat-icon>contacts</mat-icon>
+    </button>
+    <button mat-button routerLink="contato" routerLinkActive="active-route">
+      Novo Contato
+      <mat-icon>person_add</mat-icon>
+    </button>
+  </div>
+  <span class="spacer"></span>
+  <a href="https://github.com/Rique25">
+    <button mat-icon-button>
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </a>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
