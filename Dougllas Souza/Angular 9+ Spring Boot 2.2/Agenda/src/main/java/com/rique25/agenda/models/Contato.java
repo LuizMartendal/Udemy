@@ -3,11 +3,11 @@ package com.rique25.agenda.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-import java.sql.Types;
 import java.util.UUID;
 
 @Entity
@@ -31,7 +31,8 @@ public class Contato {
     private String email;
 
     @Column
-    private int numero;
+    private long numero;
 
-    @Column Boolean favorito;
+    @Column
+    private boolean favorito;
 }

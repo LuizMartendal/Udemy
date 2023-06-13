@@ -30,7 +30,7 @@ public class ContatoController {
     }
 
     @PatchMapping("{id}/favorito")
-    public Contato setFavorito(@PathVariable String id, @RequestParam(name = "favorito", defaultValue = "false") Boolean favorito) {
+    public Contato setFavorito(@PathVariable String id, @RequestParam(name = "favorito", defaultValue = "false") boolean favorito) {
         return this.contatoService.setFavorito(UUID.fromString(id), favorito);
     }
 

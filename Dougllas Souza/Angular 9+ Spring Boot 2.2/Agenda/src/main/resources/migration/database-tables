@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS contato (
     id CHAR(36) NOT NULL,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    numero INT NOT NULL,
-    favorito BOOLEAN,
+    numero CHAR(13) NOT NULL,
+    favorito BOOLEAN DEFAULT 0,
     PRIMARY KEY (id)
 );

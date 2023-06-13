@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   isMobile: boolean = false;
 
   constructor(
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
   ) {}
 
   ngOnInit(): void {

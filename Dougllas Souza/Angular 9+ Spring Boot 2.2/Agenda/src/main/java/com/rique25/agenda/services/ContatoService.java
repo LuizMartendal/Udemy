@@ -38,7 +38,7 @@ public class ContatoService {
                 .orElseThrow( () -> new RuntimeException("Contato não encontrado!"));
     }
 
-    public Contato setFavorito( UUID id, Boolean favorito ) {
+    public Contato setFavorito( UUID id, boolean favorito ) {
         Optional<Contato> contatoRetornado = this.contatoRepository.findById(id);
 
         if (contatoRetornado.isPresent()) {

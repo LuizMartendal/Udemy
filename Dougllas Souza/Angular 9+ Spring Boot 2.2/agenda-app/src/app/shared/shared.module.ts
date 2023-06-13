@@ -7,8 +7,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
 
 import { ListComponent } from './list/list.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +27,12 @@ import { ListComponent } from './list/list.component';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatCardModule
   ],
   exports: [
     MatToolbarModule,
@@ -30,7 +41,12 @@ import { ListComponent } from './list/list.component';
     MatFormFieldModule,
     MatInputModule,
     MatSidenavModule,
-    ListComponent
+    ListComponent,
+    MatMenuModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatCardModule
   ]
 })
 export class SharedModule { }

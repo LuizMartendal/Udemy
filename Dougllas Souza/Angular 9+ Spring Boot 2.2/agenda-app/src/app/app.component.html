@@ -1,7 +1,29 @@
-<main style="width: 100%; height: 100%" *ngIf="isMobile">
-  <mat-toolbar color="primary">
-    <div class="router-buttons">
-      <span routerLink="" style="cursor: pointer;">Agenda App</span>
+<mat-toolbar *ngIf="!isMobile" color="primary">
+  <div class="router-buttons">
+    <span routerLink="" style="cursor: pointer;">Agenda App</span>
+    <button style="margin-left: 20px;" mat-button active routerLink="list" routerLinkActive="active-route">
+      Agenda
+      <mat-icon>contacts</mat-icon>
+    </button>
+    <button mat-button routerLink="contato" routerLinkActive="active-route">
+      Novo Contato
+      <mat-icon>person_add</mat-icon>
+    </button>
+  </div>
+  <a href="https://github.com/Rique25">
+    <button mat-icon-button>
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </a>
+</mat-toolbar>
+
+<mat-toolbar class="isMobile" *ngIf="isMobile" color="primary">
+  <div class="router-buttons">
+    <button type="button" mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span routerLink="" style="cursor: pointer;">Agenda App</span>
+    <mat-menu class="menu" #menu="matMenu" xPosition="after">
       <button style="margin-left: 20px;" mat-button active routerLink="list" routerLinkActive="active-route">
         Agenda
         <mat-icon>contacts</mat-icon>
@@ -10,28 +32,14 @@
         Novo Contato
         <mat-icon>person_add</mat-icon>
       </button>
-    </div>
-    <a href="https://github.com/Rique25">
-      <button mat-icon-button>
-        <mat-icon>favorite</mat-icon>
-      </button>
-    </a>
-  </mat-toolbar>
-  <router-outlet></router-outlet>
-</main>
+    </mat-menu>
+  </div>
+  <a href="https://github.com/Rique25">
+    <button mat-icon-button>
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </a>
+</mat-toolbar>
 
-<main class="isMobile" style="width: 100%; height: 100%" *ngIf="!isMobile">
-  <mat-toolbar color="primary">
-      <div class="router-buttons">
-        <button type="button" mat-button>
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span routerLink="" style="cursor: pointer;">Agenda App</span>
-      </div>
-      <a href="https://github.com/Rique25">
-        <button mat-icon-button>
-          <mat-icon>favorite</mat-icon>
-        </button>
-      </a>
-  </mat-toolbar>
-</main>
+<router-outlet></router-outlet>
+
