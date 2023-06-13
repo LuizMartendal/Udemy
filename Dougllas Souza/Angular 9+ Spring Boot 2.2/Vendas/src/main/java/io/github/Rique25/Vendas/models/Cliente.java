@@ -54,4 +54,11 @@ public class Cliente {
     public void prePersist() {
         setDataCadastro(LocalDate.now());
     }
+
+    @PostPersist
+    public void postPersist() {
+        if (getCpf() == null) {
+            setCpf("");
+        }
+    }
 }
