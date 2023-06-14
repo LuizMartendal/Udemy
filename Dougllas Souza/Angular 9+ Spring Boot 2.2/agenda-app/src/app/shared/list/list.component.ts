@@ -31,7 +31,13 @@ export class ListComponent implements OnInit {
       next: (res: any) => {
         this.contatos = res.content
       },
-      error: (err: any) => this.openDialog('Erro!', err.error)
+      error: (err: any) => {
+        if (err.status !== 0) {
+          this.openDialog('Erro!', err.error)
+        } else {
+          this.openDialog('Erro!', "Servidor não disponível")
+        }
+      }
       }
     );
   }
