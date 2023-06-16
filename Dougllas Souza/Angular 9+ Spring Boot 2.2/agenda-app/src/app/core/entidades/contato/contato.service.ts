@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Contato } from 'src/app/contato/models/Contato';
@@ -23,8 +23,12 @@ export class ContatoService {
     return this.http.put<Contato>(`${this.API_URL}/api/contatos/${id}`, contato);
   }
 
-  list(): Observable<Contato[]> {
-    return this.http.get<Contato[]>(`${this.API_URL}/api/contatos`);
+  list(page: number, size: number): Observable<Contato[]> {
+    let params: HttpParams = new HttpParams();
+    params = params.append('page', page);
+    params = params.append('size', size);
+
+    return this.http.get<Contato[]>(`${this.API_URL}/api/contatos`, {params: params});
   }
 
   getById(id: string): Observable<Contato> {
@@ -36,6 +40,9 @@ export class ContatoService {
   }
 
   setFavorite(favorite: boolean, id: string) {
-    return this.http.patch(`${this.API_URL}/api/contatos/${id}/favorito`, {favorito: favorite});
+    let pathParams: HttpParams = new HttpParams();
+    pathParams = pathParams.append('favorito', favorite);
+    return this.http.patch(`${this.API_URL}/api/contatos/${id}/favorito`, pathParams);
   }
 }
+

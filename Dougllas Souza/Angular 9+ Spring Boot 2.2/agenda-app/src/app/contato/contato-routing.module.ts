@@ -8,6 +8,9 @@ const routes: Routes = [
   },
   {
     path: 'new', component: NewContatoComponent
+  },
+  {
+    path: 'edit/:id', component: NewContatoComponent
   }
 ];
 

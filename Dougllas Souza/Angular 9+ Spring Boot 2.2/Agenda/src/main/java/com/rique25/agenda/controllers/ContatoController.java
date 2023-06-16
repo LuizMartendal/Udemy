@@ -2,11 +2,12 @@ package com.rique25.agenda.controllers;
 
 import com.rique25.agenda.models.Contato;
 import com.rique25.agenda.services.ContatoService;
+import com.rique25.agenda.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -35,9 +36,9 @@ public class ContatoController {
     }
 
     @GetMapping
-    public Page<Contato> list( @RequestParam(name = "page", defaultValue = "0") Integer page,
-                               @RequestParam(name = "size", defaultValue = "10") Integer size,
-                               @RequestParam(name = "direction", defaultValue = "asc") String direction)
+    public Page<Contato> list(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                              @RequestParam(name = "size", defaultValue = "10") Integer size,
+                              @RequestParam(name = "direction", defaultValue = "asc") String direction)
     {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "nome"));
@@ -47,5 +48,14 @@ public class ContatoController {
     @GetMapping("{id}")
     public Contato findById( @PathVariable String id ) {
         return this.contatoService.findById(UUID.fromString(id));
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void delete( @PathVariable String id ) {
+        if (id.isEmpty()) {
+            throw new RuntimeException("Id não especificado!");
+        }
+        this.contatoService.delete(UUID.fromString(id));
     }
 }

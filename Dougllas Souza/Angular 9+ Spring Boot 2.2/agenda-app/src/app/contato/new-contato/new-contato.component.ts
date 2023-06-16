@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contato } from '../models/Contato';
 import { ContatoService } from 'src/app/core/entidades/contato/contato.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,13 +26,25 @@ export class NewContatoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private service: ContatoService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-      if (this.contato) {
-        this.patchForm();
-      }
+    let id: any;
+    this.route.params.subscribe((res: any) => id = res.id);
+
+    if (id) {
+      this.service.getById(id)
+        .subscribe({
+          next: (res: any) => {
+            this.contato = res;
+            this.patchForm();
+          },
+          error: (err: any) => this.openDialog('Erro!', err.error)
+        }
+      );
+    }
   }
 
   patchForm() {
@@ -52,15 +64,35 @@ export class NewContatoComponent implements OnInit {
       this.contato.email = formValues.email;
       this.contato.numero = formValues.numero;
 
-      this.service.create(this.contato)
-        .subscribe({
-          next: (res: any) => {
-            this.openDialog("Sucesso!", "Contato " + this.contato.nome + " criado com sucesso!");
-            this.router.navigate(['/']);
-          },
-          error: (err: any) => this.openDialog("Erro!", err.error)
-        });
+      if (this.contato.id != null) {
+        this.update(this.contato, this.contato.id);
+      } else {
+        this.create(this.contato);
+      }
     }
+  }
+
+  create(contato: Contato) {
+    this.service.create(contato)
+      .subscribe({
+        next: (res: any) => {
+          this.openDialog("Sucesso!", "Contato " + this.contato.nome + " criado com sucesso!");
+          this.router.navigate(['/']);
+        },
+        error: (err: any) => this.openDialog("Erro!", err.error)
+      }
+    );
+  }
+
+  update(contato: Contato, id: any) {
+    this.service.update(contato, id)
+      .subscribe({
+        next: (res: any) => {
+          this.openDialog("Sucesso!", "Contato " + this.contato.nome + " atualizado com sucesso!");
+        },
+        error: (err: any) => this.openDialog("Erro!", err.error)
+      }
+    );
   }
 
   openDialog(title: string, message: string) {
