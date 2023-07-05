@@ -18,4 +18,5 @@ void main() {
     scanf("%f", &nota2);
 
     printf("Média das notas: %f", (nota1 + nota2) / 2);
+
 }
