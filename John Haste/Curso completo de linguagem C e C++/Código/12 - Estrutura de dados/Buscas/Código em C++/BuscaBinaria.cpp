@@ -8,23 +8,19 @@
 using namespace std;
 
 int buscar(int vetor[], int valorProcurado, int inicio, int fim) {
-    int meio = inicio / fim;
-    int valor = vetor[meio];
-    if (valor == valorProcurado) {
-        return meio;
-    } else {
-        if (valorProcurado > valor) {
-            inicio = meio + 1;
+    if (inicio <= fim) {
+        int meio = (inicio + fim) / 2;
+        if (vetor[meio] == valorProcurado) {
+            return meio;
         } else {
-            fim = meio - 1;
+            if (valorProcurado > vetor[meio]) {
+                return buscar(vetor, valorProcurado, meio + 1, fim);
+            } else {
+                return buscar(vetor, valorProcurado, inicio, meio - 1);
+            }
         }
     }
-
-    if (inicio < fim) {
-        return buscar(vetor, valorProcurado, inicio, fim);
-    } else {
-        return -1;
-    }
+    return -1;
 }
 
 int buscaBinaria(int vetor[], int valorProcurado) {
