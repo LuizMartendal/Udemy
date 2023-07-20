@@ -11,7 +11,7 @@ void clearScreen();
 
 void run();
 int* prencherVetor(int tamanho);
-void bubbleSort(int *vetor, int tamanho);
+void insertionSort(int *vetor, int tamanho);
 
 int main() {
 
@@ -27,7 +27,7 @@ void clearScreen() {
     system("cls");
 }
 
-void imprimirVetor(int *vetor, int tamanho) {
+void imprimirVetor(int *vetor, int tamaho) {
     for (int i = 0; i < tamanho; i++) {
         cout << vetor[i] << " ";
     }
@@ -44,9 +44,9 @@ void run() {
     clearScreen();
 
     cout << "Vetor não ordenado: ";
-    imprimeVetor(vetor, tamanho);
+    imprimirVetor(vetor, tamanho);
 
-    bubbleSort(vetor, tamanho);
+    insertionSort(vetor, tamanho);
 
     cout << "\nVetor ordenado: ";
     imprimirVetor(vetor, tamanho);
@@ -69,16 +69,18 @@ int* prencherVetor(int tamanho) {
     return vetor;
 }
 
-void bubbleSort(int *vetor, int tamanho) {
-    for (int i = 0; i < tamanho; i++) {
-        for (int j = 0; j < tamanho - 1; j++) {
-            if (vetor[j] > vetor[i]) {
-                int intermediador = vetor[j];
-                vetor[j] = vetor[i];
-                vetor[i] = intermediador;
-                imprimirVetor(vetor, tamanho);
+void insertionSort(int *vetor, int tamanho) {
+    if (tamanho > 1) {
+        for (int i = 1; i < tamanho; i++) {
+            for (int j = i - 1; j >= 0; j--) {
+                if (vetor[j] > vetor[i]) {
+                    int intermediador = vetor[j];
+                    vetor[j] = vetor[i];
+                    vetor[i] = intermediador;
+                    cout << "\n";
+                    imprimirVetor(vetor, tamanho);
+                }
             }
         }
     }
 }
-
