@@ -48,7 +48,7 @@ void run() {
     cout << "Vetor não ordenado: ";
     imprimeVetor(vetor, tamanho);
 
-    quickSort(vetor, 0, tamanho);
+    quickSort(vetor, 0, tamanho - 1);
 
     cout << "\nVetor ordenado: ";
     imprimeVetor(vetor, tamanho);
@@ -82,7 +82,7 @@ int particionar(int *vetor, int menor, int maior) {
     int i = menor - 1;
 
     for (int j = menor; j < maior; j++) {
-        if (vetor[j] <= pivo) {
+        if (vetor[j] < pivo) {
             i++;
             trocar(vetor, i, j);
         }
