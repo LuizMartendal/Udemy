@@ -75,23 +75,29 @@ void insertEnd(LinkedList *&linkedList) {
 }
 
 void insertAnywhere(LinkedList *linkedList, int position) {
-    int index;
+    if (position == 0) {
+        insertBeginning(linkedList);
+    } else if (position == linkedList->quantity - 1) {
+        insertEnd(linkedList);
+    } else {
+        int index;
 
-    Node *nodeToInsert = createANode();
+        Node *nodeToInsert = createANode();
 
-    Node *node = linkedList->first;
-    while (node != NULL) {
-        if (index + 1 == position) {
-            if (node->nextNode != NULL) {
-                nodeToInsert->nextNode = node->nextNode;
+        Node *node = linkedList->first;
+        while (node != NULL) {
+            if (index + 1 == position) {
+                if (node->nextNode != NULL) {
+                    nodeToInsert->nextNode = node->nextNode;
+                }
+                node->nextNode = nodeToInsert;
+                return;
             }
-            node->nextNode = nodeToInsert;
-            return;
+            node = node->nextNode;
+            index++;
         }
-        node = node->nextNode;
-        index++;
-    }
-    cout << "Posição não encontrada";
+        cout << "Posição não encontrada";
+        }
 }
 
 void removeBeginning(LinkedList *linkedList) {
@@ -118,7 +124,26 @@ void removeEnd(LinkedList *linkedList) {
 }
 
 void removeAnywhere(LinkedList *linkedList, int position) {
+    if (position == 0) {
+        removeBeginning(linkedList);
+    } else if (position == linkedList->quantity - 1) {
+        removeEnd(linkedList);
+    } else {
+        int index;
 
+        Node *node = linkedList->first;
+        while (node != NULL) {
+            if (index + 1 == position) {
+                if (node->nextNode != NULL) {
+                    node->nextNode = node->nextNode->nextNode;
+                }
+                return;
+            }
+            node = node->nextNode;
+            index++;
+        }
+        cout << "Posição não encontrada";
+    }
 }
 
 void searchByCPF(LinkedList *linkedList, int cpf) {
