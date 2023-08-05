@@ -68,6 +68,58 @@ void play(int quantityOfPlayers) {
         clearScreen();
 
         showStatus(maskedWord, wordSize, maximumAttempts - attempts, lettersTried);
+
+        cout << "\nType a letter or press the number 1 to try the full word: ";
+        cin >> letter;
+
+        if (letter == '1') {
+            cout << "\n" << "Type the full word: ";
+            cin >> wordTried;
+            if (wordTried == word) {
+                maskedWord = wordTried;
+            } else {
+                attempts = maximumAttempts;
+            }
+        } else {
+            for (int i = 0; i < attempts; i++) {
+                if (lettersTried[i] == letter) {
+                    cout << "This letter has already been typed";
+                    alreadyWrot = true;
+                }
+            }
+
+            if (!alreadyWrot) {
+                lettersTried += tolower(letter);
+
+                for (int i = 0; i < wordSize; i++) {
+                    if (word[i] == tolower(letter)) {
+                        maskedWord[i] = word[i];
+                        rightLetter = true;
+                    }
+                }
+
+                if (rightLetter) {
+                    cout << "You typed the right letter";
+                } else {
+                    cout << "You typed the wrong letter";
+                }
+
+                attempts++;
+            }
+
+            alreadyWrot = false;
+            rightLetter = false;
+
+        }
+    }
+
+    clearScreen();
+
+    if (maskedWord == word) {
+        cout << "Yeah bro! You got it! Congratulations \n";
+        system("pause");
+    } else {
+        cout << "My gosh! You´re so bad... \n";
         system("pause");
     }
 }
