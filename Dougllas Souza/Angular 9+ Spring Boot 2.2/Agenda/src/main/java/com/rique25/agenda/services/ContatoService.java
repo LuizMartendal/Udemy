@@ -37,7 +37,7 @@ public class ContatoService {
         List<Contato> contatos = this.contatoRepository.findAll();
         return new Page<>(
         this.contatoRepository.findAll(pageable).getContent(),
-        (long) pageable.getPageSize() > 0 ? pageable.getPageSize() / contatos.size() : 1L,
+        (long) pageable.getPageSize() > 0 ? contatos.size() / pageable.getPageSize() + 1 : 1L,
         contatos.size());
     }
 
